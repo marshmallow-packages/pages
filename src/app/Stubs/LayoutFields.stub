@@ -1,0 +1,12 @@
+/**
+	 * Get the fields displayed by the layout. HAHAHAH
+	 *
+	 * @return array
+	 */
+	public function fields()
+	{
+	    return [
+	        //
+	    ];
+	}
+	

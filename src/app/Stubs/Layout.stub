@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Flexible\Layouts;
+
+use Marshmallow\Pages\Flexible\Layouts\Layout;
+
+class {{class}} extends Layout
+{
+    {{use}}
+    /**
+     * The layout's unique identifier
+     *
+     * @var string
+     */
+    protected $name = '{{name}}';
+
+    /**
+     * The displayed title
+     *
+     * @var string
+     */
+    protected $title = '{{title}}';
+
+    {{fields}}
+    protected function getComponentClass ()
+    {
+        return {{component_class_path}};
+    }
+}

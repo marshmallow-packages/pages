@@ -1,0 +1,52 @@
+{
+    "name": "marshmallow/pages",
+    "description": "Deze package geeft de mogelijkheid om gemakkelijk pagina's te beheren in Laravel. Dit is eigelijk een verzameling van handinge composer packages van derde en samengevoegd om snel te kunnen hergebruiken.",
+    "keywords": ["marshmallow"],
+    "homepage": "https://github.com/Marshmallow-Development/",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stef",
+            "email": "stef@marshmallow.dev",
+            "homepage": "https://marshmallow.dev",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "stef@marshmallow.dev"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4",
+        "spatie/laravel-sluggable": "^2.2",
+        "marshmallow/laravel-helpers": "^1.0",
+        "marshmallow/commands": "^1.0",
+        "marshmallow/nova-tinymce": "^1.0",
+        "marshmallow/multi-language": "^1.0",
+        "marshmallow/seoable": "^2.0",
+        "whitecube/nova-flexible-content": "^0.2.2",
+        "mdixon18/fontawesome": "^0.1.1",
+        "laravel/helpers": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Marshmallow\\Pages\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Marshmallow\\Pages\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Marshmallow\\Pages\\PagesServiceProvider"
+            ],
+            "aliases": {
+                "Page": "Marshmallow\\Pages\\Facades\\Page"
+            }
+        }
+    }
+}
