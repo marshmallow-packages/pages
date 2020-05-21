@@ -28,7 +28,7 @@ use Whitecube\NovaFlexibleContent\Concerns\HasFlexible;
 
 class Page extends Model
 {
-	use HasSlug, SoftDeletes, HasFlexible, 
+	use HasSlug, SoftDeletes, HasFlexible,
         HasTranslations, TranslatableRoute,
         Seoable;
 
@@ -85,19 +85,38 @@ class Page extends Model
             return $flexible;
         }
 
-        if(is_null($flexible)) {
+        if (is_null($flexible)) {
             return new Collection();
         }
+
+        if (!is_array($flexible)) {
+            return new Collection();
+        }
+
         return new Collection(
-            array_filter($this->getMappedFlexibleLayouts($flexible, \Marshmallow\Pages\Facades\Page::getLayouts()))
+            array_filter(
+                $this->getMappedFlexibleLayouts(
+                    $flexible, \Marshmallow\Pages\Facades\Page::getLayouts()
+                )
+            )
         );
     }
 
+    /**
+     * [getMappedFlexibleLayouts description]
+     *
+     * @param array $flexible      [description]
+     * @param array $layoutMapping [description]
+     *
+     * @return array                [description]
+     */
     protected function getMappedFlexibleLayouts(array $flexible, array $layoutMapping)
     {
-        return array_map(function($item) use ($layoutMapping) {
-            return $this->getMappedLayout($item, $layoutMapping);
-        }, $flexible);
+        return array_map(
+            function ($item) use ($layoutMapping) {
+                return $this->getMappedLayout($item, $layoutMapping);
+            }, $flexible
+        );
     }
 
     protected function getMappedLayout($item, array $layoutMapping)
@@ -106,27 +125,27 @@ class Page extends Model
         $key = null;
         $attributes = [];
 
-        if(is_string($item)) {
+        if (is_string($item)) {
             $item = json_decode($item);
         }
 
-        if(is_array($item)) {
+        if (is_array($item)) {
             $name = $item['layout'] ?? null;
             $key = $item['key'] ?? null;
             $attributes = (array) $item['attributes'] ?? [];
-        }
-        elseif(is_a($item, \stdClass::class)) {
+
+        } elseif (is_a($item, \stdClass::class)) {
             $name = $item->layout ?? null;
             $key = $item->key ?? null;
             $attributes = (array) $item->attributes ?? [];
-        }
-        elseif(is_a($item, Layout::class)) {
+
+        } elseif (is_a($item, Layout::class)) {
             $name = $item->name();
             $key = $item->key();
             $attributes = $item->getAttributes();
         }
 
-        if(is_null($name) || !$attributes) {
+        if (is_null($name) || !$attributes) {
             return;
         }
 
