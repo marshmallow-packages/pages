@@ -47,7 +47,7 @@ class Page extends Resource
     {
         return [
             Text::make('Name')->sortable()->rules(['required']),
-            Text::make('Slug')->sortable()->rules(['required'])->help('This is the URL of the page. This is not automaticly updated when you change the name of the page. Please don\'t change the url unless you really have to.')->hideWhenCreating()->displayUsing(function ($value, Model $model, $attribute) {
+            Text::make('Slug')->sortable()->help('This is the URL of the page. This is not automaticly updated when you change the name of the page. Please don\'t change the url unless you really have to.')->hideWhenCreating()->displayUsing(function ($value, Model $model, $attribute) {
                 return '<a href="'. $model->route() .'" target="_blank">'. $value .'</a>';
             })->asHtml(),
 
@@ -57,7 +57,7 @@ class Page extends Resource
         ];
     }
 
-    
+
 
     protected function getFlex ()
     {

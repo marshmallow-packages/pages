@@ -47,7 +47,12 @@ class Page extends Model
         if (config('pages.use_multi_languages')) {
             $locale = App::getLocale();
             $url = ltrim($url, $locale . '/');
-            $builder->where($model_url_column, 'LIKE', '%"'. $locale .'": "'. $url .'"%');
+            if ($url) {
+                $builder->where($model_url_column, 'LIKE', '%"'. $locale .'": "'. $url .'"%');
+            } else {
+                $builder->where($model_url_column, 'LIKE', '%"'. $locale .'": null%');
+            }
+
         } else {
             $builder->where($model_url_column, $url);
         }
@@ -152,6 +157,16 @@ class Page extends Model
         return $this->createMappedLayout($name, $key, $attributes, $layoutMapping);
     }
 
+    /**
+     * [createMappedLayout description]
+     *
+     * @param [type] $name          [description]
+     * @param [type] $key           [description]
+     * @param [type] $attributes    [description]
+     * @param array  $layoutMapping [description]
+     *
+     * @return [type]                [description]
+     */
     protected function createMappedLayout($name, $key, $attributes, array $layoutMapping)
     {
         $classname = array_key_exists($name, $layoutMapping)
