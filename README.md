@@ -4,8 +4,13 @@
 Deze package geeft de mogelijkheid om gemakkelijk pagina's te beheren in Laravel. Dit is eigelijk een verzameling van handinge composer packages van derde en samengevoegd om snel te kunnen hergebruiken.
 
 ### Installatie
-```
+```bash
 composer require marshmallow/pages
+```
+
+```bash
+php artisan migrate
+php artisan marshmallow:resource Page Pages
 ```
 
 Add `\Marshmallow\Pages\Facades\Page::loadRoutes();` at the absolute bottom of your `routes/web.php` file.
