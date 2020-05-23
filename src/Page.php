@@ -7,11 +7,6 @@ use Marshmallow\MultiLanguage\Models\Language;
 
 class Page
 {
-    private $default_layouts = [
-        'wysiwyg' => \Marshmallow\Pages\Flexible\Layouts\WysiwygLayout::class,
-        'uspfontawesome' => \Marshmallow\Pages\Flexible\Layouts\UspFontawesomeLayout::class,
-    ];
-
 	public function loadRoutes ()
     {
         if (config('pages.use_multi_languages')) {
@@ -50,28 +45,5 @@ class Page
     		'web',
     		config('pages.middleware'),
     	];
-    }
-
-    public function getLayouts ()
-    {
-        if (!empty(config('pages.layouts'))) {
-            if (config('pages.merge_layouts') === true) {
-                return array_merge(
-                    config('pages.layouts'),
-                    $this->default_layouts
-                );
-            }
-            return config('pages.layouts');
-        }
-        return $this->default_layouts;
-    }
-
-    public function render (\Marshmallow\Pages\Models\Page $page)
-    {
-        $html = '';
-        foreach ($page->layout as $layout) {
-            $html .= $layout->render();
-        }
-        return $html;
     }
 }

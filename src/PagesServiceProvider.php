@@ -4,7 +4,6 @@ namespace Marshmallow\Pages;
 
 use Marshmallow\Pages\Page;
 use Illuminate\Support\ServiceProvider;
-use Marshmallow\Pages\Console\Commands\LayoutCommand;
 
 class PagesServiceProvider extends ServiceProvider
 {
@@ -23,7 +22,7 @@ class PagesServiceProvider extends ServiceProvider
         $this->app->singleton(Page::class, function () {
             return new Page;
         });
-        
+
         $this->app->alias(Page::class, 'page');
     }
 
@@ -47,7 +46,7 @@ class PagesServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                LayoutCommand::class,
+                //
             ]);
         }
     }

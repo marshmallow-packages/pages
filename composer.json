@@ -25,7 +25,7 @@
         "marshmallow/nova-tinymce": "^1.0",
         "marshmallow/multi-language": "^1.0",
         "marshmallow/seoable": "^2.0",
-        "whitecube/nova-flexible-content": "^0.2.1",
+        "marshmallow/nova-flexible": "^1.0",
         "mdixon18/fontawesome": "^0.1.1",
         "laravel/helpers": "^1.2"
     },

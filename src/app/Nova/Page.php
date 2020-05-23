@@ -3,17 +3,15 @@
 namespace Marshmallow\Pages\Nova;
 
 use App\Nova\Resource;
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Marshmallow\Seoable\Seoable;
-use Laravel\Nova\Fields\MorphMany;
-use Marshmallow\Nova\TinyMCE\TinyMCE;
 use Illuminate\Database\Eloquent\Model;
-use Whitecube\NovaFlexibleContent\Flexible;
+use Marshmallow\Nova\Flexible\Nova\Traits\HasFlexable;
 
 class Page extends Resource
 {
+    use HasFlexable;
     /**
      * The model the resource corresponds to.
      *
@@ -40,32 +38,36 @@ class Page extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request Request
+     *
      * @return array
      */
     public function fields(Request $request)
     {
         return [
             Text::make('Name')->sortable()->rules(['required']),
-            Text::make('Slug')->sortable()->help('This is the URL of the page. This is not automaticly updated when you change the name of the page. Please don\'t change the url unless you really have to.')->hideWhenCreating()->displayUsing(function ($value, Model $model, $attribute) {
-                return '<a href="'. $model->route() .'" target="_blank">'. $value .'</a>';
-            })->asHtml(),
+            Text::make('Slug')->sortable()
+                ->help(
+                    'This is the URL of the page.'.
+                    'This is not automaticly updated when you change the name of '.
+                    'the page. Please don\'t change the url unless you '.
+                    'really have to.'
+                )
+                ->hideWhenCreating()
+                ->displayUsing(
+                    function ($value, Model $model, $attribute) {
+                        return sprintf(
+                            '<a href="%s" target="_blank">%s</a>',
+                            $model->route(),
+                            $value
+                        );
+                    }
+                )->asHtml(),
 
             $this->getFlex(),
 
             Seoable::make('Seo'),
         ];
-    }
-
-
-
-    protected function getFlex ()
-    {
-        $flex = Flexible::make('Layout');
-        foreach (\Marshmallow\Pages\Facades\Page::getLayouts() as $layout) {
-            $flex->addLayout($layout);
-        }
-        return $flex;
     }
 
     /**
