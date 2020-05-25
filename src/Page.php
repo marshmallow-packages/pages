@@ -22,7 +22,8 @@ class Page
         $pages = \Marshmallow\Pages\Models\Page::get();
         foreach ($pages as $page) {
             Route::middleware($this->getMiddlewareArray())
-                ->get($page->route(), config('pages.controller'));
+                ->get($page->route(), config('pages.controller'))
+                ->name($page->route_name);
         }
     }
 
@@ -34,7 +35,8 @@ class Page
         foreach ($languages as $language) {
             foreach ($pages as $page) {
                 Route::middleware($this->getMiddlewareArray())
-                            ->get($page->localeRoute($language), config('pages.controller'));
+                            ->get($page->localeRoute($language), config('pages.controller'))
+                            ->name($page->route_name);
             }
         }
     }
