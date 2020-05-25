@@ -44,11 +44,15 @@ class Page extends Model
     public function scopeGetByUrl (Builder $builder, Request $request)
     {
         $model_url_column = $this->getRouteKeyName();
-        $url = join('/', $request->segments());
+        $url = $request->route()->uri;
         if (config('pages.use_multi_languages')) {
             $locale = App::getLocale();
-            $url = ltrim($url, $locale . '/');
-            if ($url) {
+
+            if (strpos($url, $locale . '/') !== false) {
+                $url = substr($url, strlen($locale . '/'), strlen($url));
+            }
+
+            if ($url !== '/') {
                 $builder->where($model_url_column, 'LIKE', '%"'. $locale .'": "'. $url .'"%');
             } else {
                 $builder->where($model_url_column, 'LIKE', '%"'. $locale .'": null%');
