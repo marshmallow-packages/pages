@@ -20,7 +20,7 @@
     "require": {
         "php": "^7.4",
         "spatie/laravel-sluggable": "^2.2",
-        "marshmallow/helpers": "^1.0",
+        "marshmallow/helpers": "^2.0",
         "marshmallow/commands": "^1.0",
         "marshmallow/nova-tinymce": "^1.0",
         "marshmallow/multi-language": "^1.0",
