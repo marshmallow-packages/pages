@@ -14,9 +14,10 @@ class PagesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->mergeConfigFrom(
-            __DIR__.'/config/pages.php', 'pages'
+            __DIR__.'/../config/pages.php',
+            'pages'
         );
 
         $this->app->singleton(Page::class, function () {
@@ -36,18 +37,12 @@ class PagesServiceProvider extends ServiceProvider
         /**
          * Views
          */
-        $this->loadViewsFrom(__DIR__.'/views', 'marshmallow');
+        $this->loadViewsFrom(__DIR__.'/../views', 'marshmallow');
 
-        $this->loadFactoriesFrom(__DIR__.'/database/factories');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->publishes([
-            __DIR__.'/views' => resource_path('views/vendor/marshmallow'),
+            __DIR__.'/../views' => resource_path('views/vendor/marshmallow'),
         ]);
-
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                //
-            ]);
-        }
     }
 }

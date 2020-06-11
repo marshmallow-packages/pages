@@ -12,12 +12,9 @@ use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Marshmallow\HelperFunctions\Facades\URL;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Marshmallow\Nova\Flexible\Layouts\Layout;
 use Marshmallow\Nova\Flexible\Casts\FlexibleCast;
-use Marshmallow\Nova\Flexible\Layouts\Collection;
 use Marshmallow\Nova\Flexible\Concerns\HasFlexible;
 use Marshmallow\MultiLanguage\Traits\TranslatableRoute;
-use Marshmallow\Nova\Flexible\Layouts\MarshmallowLayout;
 
 /**
  * Is sluggable
@@ -29,9 +26,12 @@ use Marshmallow\Nova\Flexible\Layouts\MarshmallowLayout;
 
 class Page extends Model
 {
-	use HasSlug, SoftDeletes, HasFlexible,
-        HasTranslations, TranslatableRoute,
-        Seoable;
+	use HasSlug;
+    use SoftDeletes;
+    use HasFlexible;
+    use HasTranslations;
+    use TranslatableRoute;
+    use Seoable;
 
     public $translatable = ['layout', 'name', 'slug'];
 
@@ -41,7 +41,7 @@ class Page extends Model
         'layout' => FlexibleCast::class,
     ];
 
-    public function scopeGetByUrl (Builder $builder, Request $request)
+    public function scopeGetByUrl(Builder $builder, Request $request)
     {
         $model_url_column = $this->getRouteKeyName();
         $url = $request->route()->uri;
@@ -57,7 +57,6 @@ class Page extends Model
             } else {
                 $builder->where($model_url_column, 'LIKE', '%"'. $locale .'": null%');
             }
-
         } else {
             $builder->where($model_url_column, $url);
         }
@@ -74,7 +73,7 @@ class Page extends Model
             ->saveSlugsTo($this->getRouteKeyName());
     }
 
-    public function route ()
+    public function route()
     {
         $model_url_column = $this->getRouteKeyName();
         return URL::buildFromArray([

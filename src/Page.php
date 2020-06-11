@@ -7,7 +7,7 @@ use Marshmallow\MultiLanguage\Models\Language;
 
 class Page
 {
-	public function loadRoutes ()
+	public function loadRoutes()
     {
         if (config('pages.use_multi_languages')) {
             $this->loadTranslateableRoutes();
@@ -17,7 +17,7 @@ class Page
         $this->loadNoneTranslateableRoutes();
     }
 
-    protected function loadNoneTranslateableRoutes ()
+    protected function loadNoneTranslateableRoutes()
     {
         $pages = \Marshmallow\Pages\Models\Page::get();
         foreach ($pages as $page) {
@@ -27,7 +27,7 @@ class Page
         }
     }
 
-    protected function loadTranslateableRoutes ()
+    protected function loadTranslateableRoutes()
     {
         $pages = \Marshmallow\Pages\Models\Page::get();
         $languages = Language::orderBy('code', 'asc')->get();
@@ -41,7 +41,7 @@ class Page
         }
     }
 
-    protected function getMiddlewareArray ()
+    protected function getMiddlewareArray()
     {
     	return [
     		'web',
