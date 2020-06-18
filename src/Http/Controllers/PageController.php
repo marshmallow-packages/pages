@@ -10,7 +10,7 @@ class PageController extends Controller
 {
     public function show(Request $request)
     {
-        $page = Page::getByUrl($request)->first();
+        $page = Page::getByUrl($request)->first()->useForSeo();
         return view(config('pages.view'))->with(
             [
                 'page' => $page,
