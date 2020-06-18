@@ -12,7 +12,7 @@ use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Marshmallow\HelperFunctions\Facades\URL;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Marshmallow\Nova\Flexible\Casts\FlexibleCast;
+// use Marshmallow\Nova\Flexible\Casts\FlexibleCast;
 use Marshmallow\Nova\Flexible\Concerns\HasFlexible;
 use Marshmallow\MultiLanguage\Traits\TranslatableRoute;
 
@@ -33,13 +33,22 @@ class Page extends Model
     use TranslatableRoute;
     use Seoable;
 
-    public $translatable = ['layout', 'name', 'slug'];
+    public $translatable = [];
 
 	protected $guarded = [];
 
     protected $casts = [
-        'layout' => FlexibleCast::class,
+        // 'layout' => FlexibleCast::class,
     ];
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        if (config('pages.use_multi_languages')) {
+            $this->translatable = ['layout', 'name', 'slug'];
+        }
+    }
 
     public function scopeGetByUrl(Builder $builder, Request $request)
     {

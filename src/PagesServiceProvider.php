@@ -44,5 +44,9 @@ class PagesServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../views' => resource_path('views/vendor/marshmallow'),
         ]);
+
+        $this->publishes([
+            __DIR__ . '/../config/pages.php' => config_path('pages.php'),
+        ]);
     }
 }

@@ -29,7 +29,7 @@ return [
      * information about these custom layouts.
      */
     'layouts' => [
-        // 'test' => \App\Flexible\Layouts\TestLayout::class
+        'test' => \App\Flexible\Layouts\TestLayout::class
     ],
 
     /**
@@ -37,7 +37,7 @@ return [
      * your custom layouts as specified in the array above will be merge
      * with them.
      */
-    'merge_layouts' => true,
+    'merge_layouts' => false,
 
     'middleware' => \Marshmallow\Pages\Http\Middleware\PageMiddleware::class,
     'controller' => '\Marshmallow\Pages\Http\Controllers\PageController@show',
