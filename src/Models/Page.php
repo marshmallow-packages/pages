@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Marshmallow\Seoable\Traits\Seoable;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
+use Marshmallow\HelperFunctions\Facades\Str;
 use Marshmallow\HelperFunctions\Facades\URL;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Marshmallow\Nova\Flexible\Concerns\HasFlexible;
@@ -61,14 +62,24 @@ class Page extends Model
                 $url = substr($url, strlen($locale . '/'), strlen($url));
             }
 
+            $raw_select_column = DB::raw("REPLACE($model_url_column, ' ', '')");
+
             if ($url !== '/') {
                 $builder->where(
-					DB::raw("REPLACE(slug, ' ', '')"),
+					$raw_select_column,
 					'LIKE',
-					'%"'. $locale .'":"'. $url .'"%'
+					Str::removeSpaces(
+						'%"'. $locale .'":"'. $url .'"%'
+					)
 				);
             } else {
-                $builder->where($model_url_column, 'LIKE', '%"'. $locale .'": null%');
+                $builder->where(
+                	$raw_select_column,
+                	'LIKE',
+                	Str::removeSpaces(
+						'%"'. $locale .'": null%'
+					)
+                );
             }
         } else {
             $builder->where($model_url_column, $url);
