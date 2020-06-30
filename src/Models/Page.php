@@ -5,6 +5,7 @@ namespace Marshmallow\Pages\Models;
 use Illuminate\Http\Request;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Model;
 use Marshmallow\Seoable\Traits\Seoable;
@@ -12,7 +13,6 @@ use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Marshmallow\HelperFunctions\Facades\URL;
 use Illuminate\Database\Eloquent\SoftDeletes;
-// use Marshmallow\Nova\Flexible\Casts\FlexibleCast;
 use Marshmallow\Nova\Flexible\Concerns\HasFlexible;
 use Marshmallow\MultiLanguage\Traits\TranslatableRoute;
 
@@ -62,7 +62,11 @@ class Page extends Model
             }
 
             if ($url !== '/') {
-                $builder->where($model_url_column, 'LIKE', '%"'. $locale .'": "'. $url .'"%');
+                $builder->where(
+					DB::raw("REPLACE(slug, ' ', '')"),
+					'LIKE',
+					'%"'. $locale .'":"'. $url .'"%'
+				);
             } else {
                 $builder->where($model_url_column, 'LIKE', '%"'. $locale .'": null%');
             }
