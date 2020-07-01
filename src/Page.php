@@ -14,7 +14,6 @@ class Page
         } else {
             $this->loadNoneTranslateableRoutes();
         }
-        $this->loadNoneTranslateableRoutes();
     }
 
     protected function loadNoneTranslateableRoutes()
