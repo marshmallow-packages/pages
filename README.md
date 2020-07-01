@@ -29,7 +29,6 @@ Run `php artisan marshmallow:multi-language` to make the pages translateable. Pl
 
 ## Make new layouts
 Run `php artisan marshmallow:layout` and follow the wizard.
-You can also flag this with `--empty` to make an empty layout. This can be used for blog posts, products lists etc.
 If this is completed, add your new `Layout::class` to your config
 
 Add below to your `.env` file to use our TinyMCE plugin for you text fields. If not used, the default Nova Trix field will be used.
