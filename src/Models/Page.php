@@ -61,6 +61,9 @@ class Page extends Model
             if (strpos($url, $locale . '/') !== false) {
                 $url = substr($url, strlen($locale . '/'), strlen($url));
             }
+            if ($url === $locale) {
+                $url = '/';
+            }
 
             $raw_select_column = DB::raw("REPLACE($model_url_column, ' ', '')");
 
@@ -92,6 +95,12 @@ class Page extends Model
                 	Str::removeSpaces(
 						'%"'. $locale .'": null%'
 					)
+                )->orWhere(
+                    $raw_select_column,
+                    'LIKE',
+                    Str::removeSpaces(
+                        '%"'. $locale .'": "/"%'
+                    )
                 );
             }
         } else {
