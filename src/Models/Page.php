@@ -97,8 +97,12 @@ class Page extends Model
             ->saveSlugsTo($this->getRouteKeyName());
     }
 
-    public function route()
+    public function route($ignore_locale = false)
     {
+        if (config('pages.use_multi_languages') && $ignore_locale === false) {
+            return $this->localeRoute();
+        }
+
         $model_url_column = $this->getRouteKeyName();
         return URL::buildFromArray([
             $this->{$model_url_column}
