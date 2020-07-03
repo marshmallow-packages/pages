@@ -65,11 +65,24 @@ class Page extends Model
             $raw_select_column = DB::raw("REPLACE($model_url_column, ' ', '')");
 
             if ($url !== '/') {
+            	/**
+            	 * We also check for escaped urls. Some mysql versions
+            	 * will store product/badpak as product\/badpak. Not all
+            	 * versions do this so we check on both.
+            	 */
+            	$escaped_url = URL::escape($url);
+
                 $builder->where(
 					$raw_select_column,
 					'LIKE',
 					Str::removeSpaces(
 						'%"'. $locale .'":"'. $url .'"%'
+					)
+				)->orWhere(
+					$raw_select_column,
+					'LIKE',
+					Str::removeSpaces(
+						'%"'. $locale .'":"'. $escaped_url .'"%'
 					)
 				);
             } else {
