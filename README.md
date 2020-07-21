@@ -6,9 +6,8 @@ Deze package geeft de mogelijkheid om gemakkelijk pagina's te beheren in Laravel
 ### Installatie
 ```bash
 composer require marshmallow/pages
-```
 
-```bash
+php artisan vendor:publish --provider="Marshmallow\Nova\Flexible\FieldServiceProvider"
 php artisan migrate
 php artisan marshmallow:resource Page Pages
 ```
