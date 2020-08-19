@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Marshmallow\Seoable\Seoable;
 use Illuminate\Database\Eloquent\Model;
+use Marshmallow\GTMetrix\GTMetrixField;
+use Marshmallow\GTMetrix\Actions\CheckGTMetrixScore;
 use Marshmallow\Nova\Flexible\Nova\Traits\HasFlexable;
 
 class Page extends Resource
@@ -64,6 +66,8 @@ class Page extends Resource
                     }
                 )->asHtml(),
 
+            GTMetrixField::make('GT Metrix'),
+
             $this->getFlex(),
 
             Seoable::make('Seo'),
@@ -111,6 +115,8 @@ class Page extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new CheckGTMetrixScore,
+        ];
     }
 }

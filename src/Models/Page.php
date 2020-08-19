@@ -7,6 +7,7 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
+use Laravel\Nova\Actions\Actionable;
 use Illuminate\Database\Eloquent\Model;
 use Marshmallow\Seoable\Traits\Seoable;
 use Spatie\Translatable\HasTranslations;
@@ -33,6 +34,7 @@ class Page extends Model
     use HasTranslations;
     use TranslatableRoute;
     use Seoable;
+    use Actionable;
 
     public $translatable = [];
 
@@ -129,6 +131,19 @@ class Page extends Model
         return URL::buildFromArray([
             $this->{$model_url_column}
         ]);
+    }
+
+    /**
+     * getFullPublicPath() is a required method for the
+     * GT Metrix package.
+     */
+    public function getFullPublicPath()
+    {
+        $route = $this->route();
+        if (!URL::isInternal($route)) {
+            return env('APP_URL') . $route;
+        }
+        return $route;
     }
 
     public function getRouteKeyName()
