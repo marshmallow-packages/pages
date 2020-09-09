@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Marshmallow\Seoable\Traits\Seoable;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
+use Marshmallow\GTMetrix\Traits\GTMetrix;
 use Marshmallow\HelperFunctions\Facades\Str;
 use Marshmallow\HelperFunctions\Facades\URL;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -34,6 +35,7 @@ class Page extends Model
     use HasTranslations;
     use TranslatableRoute;
     use Seoable;
+    use GTMetrix;
     use Actionable;
 
     public $translatable = [];
