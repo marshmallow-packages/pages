@@ -8,14 +8,14 @@ use Laravel\Nova\Fields\Text;
 use Marshmallow\Seoable\Seoable;
 use Illuminate\Database\Eloquent\Model;
 use Marshmallow\GTMetrix\GTMetrixField;
-use Marshmallow\Translatable\Traits\Translatable;
+use Marshmallow\Translatable\Traits\TranslatableFields;
 use Marshmallow\GTMetrix\Actions\CheckGTMetrixScore;
 use Marshmallow\Nova\Flexible\Nova\Traits\HasFlexable;
 
 class Page extends Resource
 {
     use HasFlexable;
-    use Translatable;
+    use TranslatableFields;
 
     /**
      * The model the resource corresponds to.
