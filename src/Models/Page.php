@@ -3,21 +3,20 @@
 namespace Marshmallow\Pages\Models;
 
 use Illuminate\Http\Request;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
+use Marshmallow\Sluggable\HasSlug;
+use Marshmallow\Sluggable\SlugOptions;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Laravel\Nova\Actions\Actionable;
 use Illuminate\Database\Eloquent\Model;
 use Marshmallow\Seoable\Traits\Seoable;
-use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Marshmallow\GTMetrix\Traits\GTMetrix;
 use Marshmallow\HelperFunctions\Facades\Str;
 use Marshmallow\HelperFunctions\Facades\URL;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Marshmallow\Nova\Flexible\Concerns\HasFlexible;
-use Marshmallow\MultiLanguage\Traits\TranslatableRoute;
+use Marshmallow\Translatable\Traits\Translatable;
 
 /**
  * Is sluggable
@@ -32,13 +31,10 @@ class Page extends Model
 	use HasSlug;
     use SoftDeletes;
     use HasFlexible;
-    use HasTranslations;
-    use TranslatableRoute;
     use Seoable;
     use GTMetrix;
     use Actionable;
-
-    public $translatable = [];
+    use Translatable;
 
 	protected $guarded = [];
 
@@ -46,13 +42,11 @@ class Page extends Model
         // 'layout' => FlexibleCast::class,
     ];
 
-    public function __construct()
+   	public function ignoreFromTranslations(): array
     {
-        parent::__construct();
-
-        if (config('pages.use_multi_languages')) {
-            $this->translatable = ['layout', 'name', 'slug'];
-        }
+    	return [
+    		'view'
+    	];
     }
 
     public function scopeGetByUrl(Builder $builder, Request $request)

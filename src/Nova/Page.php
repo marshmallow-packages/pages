@@ -8,12 +8,15 @@ use Laravel\Nova\Fields\Text;
 use Marshmallow\Seoable\Seoable;
 use Illuminate\Database\Eloquent\Model;
 use Marshmallow\GTMetrix\GTMetrixField;
+use Marshmallow\Translatable\Traits\Translatable;
 use Marshmallow\GTMetrix\Actions\CheckGTMetrixScore;
 use Marshmallow\Nova\Flexible\Nova\Traits\HasFlexable;
 
 class Page extends Resource
 {
     use HasFlexable;
+    use Translatable;
+
     /**
      * The model the resource corresponds to.
      *
@@ -44,7 +47,7 @@ class Page extends Resource
      *
      * @return array
      */
-    public function fields(Request $request)
+    public function translatableFields(Request $request)
     {
         return [
             Text::make('Name')->sortable()->rules(['required']),
@@ -67,6 +70,13 @@ class Page extends Resource
                 )->asHtml(),
 
             GTMetrixField::make('GT Metrix'),
+
+            Text::make('View')->help(
+                'This is the view file we use as the base template.' .
+                'If you wish the use the view from the config you' .
+                'can leave this field empty or set it to "Default".' .
+                'Otherwise set it to the blade view selector.'
+            ),
 
             $this->getFlex(),
 
