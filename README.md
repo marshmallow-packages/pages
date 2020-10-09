@@ -29,6 +29,7 @@ You can also loop through them yourself if that is helpfull like;
 ## Multi language
 Run `php artisan marshmallow:multi-language` to make the pages translateable. Please note that this will change your database structure. All the columns in your pages table will be changed to type `json`. The package `marshmallow/multi-language` will be required in composer.
 
+
 ## Make new layouts
 Run `php artisan marshmallow:layout` and follow the wizard.
 If this is completed, add your new `Layout::class` to your config
