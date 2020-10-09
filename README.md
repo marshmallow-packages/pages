@@ -1,5 +1,8 @@
 ![alt text](https://cdn.marshmallow-office.com/media/images/logo/marshmallow.transparent.red.png "marshmallow.")
 
+![PHP Syntax Checker](https://github.com/marshmallow-packages/pages/workflows/PHP%20Syntax%20Checker/badge.svg)
+![Check & fix styling](https://github.com/marshmallow-packages/pages/workflows/Check%20&%20fix%20styling/badge.svg)
+
 # Marshmallow Pages
 Deze package geeft de mogelijkheid om gemakkelijk pagina's te beheren in Laravel. Dit is eigelijk een verzameling van handinge composer packages van derde en samengevoegd om snel te kunnen hergebruiken.
 
