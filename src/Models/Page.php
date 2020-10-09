@@ -2,20 +2,20 @@
 
 namespace Marshmallow\Pages\Models;
 
-use Illuminate\Http\Request;
-use Marshmallow\Sluggable\HasSlug;
-use Marshmallow\Sluggable\SlugOptions;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\App;
-use Laravel\Nova\Actions\Actionable;
-use Illuminate\Database\Eloquent\Model;
-use Marshmallow\Seoable\Traits\Seoable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
+use Laravel\Nova\Actions\Actionable;
 use Marshmallow\GTMetrix\Traits\GTMetrix;
 use Marshmallow\HelperFunctions\Facades\Str;
 use Marshmallow\HelperFunctions\Facades\URL;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Marshmallow\Nova\Flexible\Concerns\HasFlexible;
+use Marshmallow\Seoable\Traits\Seoable;
+use Marshmallow\Sluggable\HasSlug;
+use Marshmallow\Sluggable\SlugOptions;
 use Marshmallow\Translatable\Traits\Translatable;
 
 /**
@@ -28,7 +28,7 @@ use Marshmallow\Translatable\Traits\Translatable;
 
 class Page extends Model
 {
-	use HasSlug;
+    use HasSlug;
     use SoftDeletes;
     use HasFlexible;
     use Seoable;
@@ -36,17 +36,17 @@ class Page extends Model
     use Actionable;
     use Translatable;
 
-	protected $guarded = [];
+    protected $guarded = [];
 
     protected $casts = [
         // 'layout' => FlexibleCast::class,
     ];
 
-   	public function ignoreFromTranslations(): array
+    public function ignoreFromTranslations(): array
     {
-    	return [
-    		'view'
-    	];
+        return [
+            'view',
+        ];
     }
 
     public function scopeGetByUrl(Builder $builder, Request $request)
@@ -66,33 +66,33 @@ class Page extends Model
             $raw_select_column = DB::raw("REPLACE($model_url_column, ' ', '')");
 
             if ($url !== '/') {
-            	/**
+                /**
             	 * We also check for escaped urls. Some mysql versions
             	 * will store product/badpak as product\/badpak. Not all
             	 * versions do this so we check on both.
             	 */
-            	$escaped_url = URL::escape($url);
+                $escaped_url = URL::escape($url);
 
                 $builder->where(
-					$raw_select_column,
-					'LIKE',
-					Str::removeSpaces(
-						'%"'. $locale .'":"'. $url .'"%'
-					)
-				)->orWhere(
-					$raw_select_column,
-					'LIKE',
-					Str::removeSpaces(
-						'%"'. $locale .'":"'. $escaped_url .'"%'
-					)
-				);
+                    $raw_select_column,
+                    'LIKE',
+                    Str::removeSpaces(
+                        '%"'. $locale .'":"'. $url .'"%'
+                    )
+                )->orWhere(
+                    $raw_select_column,
+                    'LIKE',
+                    Str::removeSpaces(
+                        '%"'. $locale .'":"'. $escaped_url .'"%'
+                    )
+                );
             } else {
                 $builder->where(
-                	$raw_select_column,
-                	'LIKE',
-                	Str::removeSpaces(
-						'%"'. $locale .'": null%'
-					)
+                    $raw_select_column,
+                    'LIKE',
+                    Str::removeSpaces(
+                        '%"'. $locale .'": null%'
+                    )
                 )->orWhere(
                     $raw_select_column,
                     'LIKE',
@@ -106,7 +106,7 @@ class Page extends Model
         }
     }
 
-	/**
+    /**
      * Get the options for generating the slug.
      */
     public function getSlugOptions(): SlugOptions
@@ -124,8 +124,9 @@ class Page extends Model
         }
 
         $model_url_column = $this->getRouteKeyName();
+
         return URL::buildFromArray([
-            $this->{$model_url_column}
+            $this->{$model_url_column},
         ]);
     }
 
@@ -136,9 +137,10 @@ class Page extends Model
     public function getFullPublicPath()
     {
         $route = $this->route();
-        if (!URL::isInternal($route)) {
+        if (! URL::isInternal($route)) {
             return env('APP_URL') . $route;
         }
+
         return $route;
     }
 

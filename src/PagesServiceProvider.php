@@ -2,7 +2,6 @@
 
 namespace Marshmallow\Pages;
 
-use Marshmallow\Pages\Page;
 use Illuminate\Support\ServiceProvider;
 
 class PagesServiceProvider extends ServiceProvider

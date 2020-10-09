@@ -3,14 +3,14 @@
 namespace Marshmallow\Pages\Nova;
 
 use App\Nova\Resource;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Marshmallow\Seoable\Seoable;
-use Illuminate\Database\Eloquent\Model;
-use Marshmallow\GTMetrix\GTMetrixField;
-use Marshmallow\Translatable\Traits\TranslatableFields;
 use Marshmallow\GTMetrix\Actions\CheckGTMetrixScore;
+use Marshmallow\GTMetrix\GTMetrixField;
 use Marshmallow\Nova\Flexible\Nova\Traits\HasFlexable;
+use Marshmallow\Seoable\Seoable;
+use Marshmallow\Translatable\Traits\TranslatableFields;
 
 class Page extends Resource
 {
