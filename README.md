@@ -12,6 +12,7 @@ php artisan migrate
 php artisan marshmallow:resource Page Pages
 ```
 
+
 Add `\Marshmallow\Pages\Facades\Page::loadRoutes();` at the absolute bottom of your `routes/web.php` file.
 
 ## Render the layouts
