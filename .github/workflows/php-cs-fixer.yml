@@ -1,6 +1,6 @@
 name: Check & fix styling
 
-on: [pull, pull_request]
+on: [push, pull_request]
 
 jobs:
   php-cs-fixer:
