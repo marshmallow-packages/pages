@@ -5,6 +5,7 @@
 [![Issues](https://img.shields.io/github/issues/marshmallow-packages/pages)](https://github.com/marshmallow-packages/pages)
 [![Licence](https://img.shields.io/github/license/marshmallow-packages/pages)](https://github.com/marshmallow-packages/pages)
 ![PHP Syntax Checker](https://github.com/marshmallow-packages/pages/workflows/PHP%20Syntax%20Checker/badge.svg)
+
 This page provides you with the ability to easily create and manage pages and its content in Laraval Nova.
 
 ## Installation
