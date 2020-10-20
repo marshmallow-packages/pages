@@ -19,6 +19,7 @@ composer require marshmallow/pages
 ### Run the artisan commands
 Publish the configs from the flexible package, migrate to create the pages table and create your Laravel Nova resource to manage your pages.
 ```bash
+php artisan vendor:publish --provider="Marshmallow\Pages\PagesServiceProvider"
 php artisan vendor:publish --provider="Marshmallow\Nova\Flexible\FieldServiceProvider"
 php artisan migrate
 php artisan marshmallow:resource Page Pages
