@@ -9,7 +9,7 @@ class PageLinkable extends MenuLinkable
 {
     public static function getIdentifier(): string
     {
-        return 'page'
+        return 'page';
     }
 
     public static function getName(): string
