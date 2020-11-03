@@ -72,9 +72,9 @@ class Page extends Resource
             GTMetrixField::make('GT Metrix'),
 
             Text::make('View')->help(
-                'This is the view file we use as the base template.' .
-                'If you wish the use the view from the config you' .
-                'can leave this field empty or set it to "Default".' .
+                'This is the view file we use as the base template.'.
+                'If you wish the use the view from the config you'.
+                'can leave this field empty or set it to "Default".'.
                 'Otherwise set it to the blade view selector.'
             ),
 
@@ -87,7 +87,6 @@ class Page extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function cards(Request $request)
@@ -98,7 +97,6 @@ class Page extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function filters(Request $request)
@@ -109,7 +107,6 @@ class Page extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function lenses(Request $request)
@@ -120,13 +117,12 @@ class Page extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function actions(Request $request)
     {
         return [
-            new CheckGTMetrixScore,
+            new CheckGTMetrixScore(),
         ];
     }
 }

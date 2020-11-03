@@ -22,7 +22,7 @@ class PageController extends Controller
 
     protected function getView(Page $page)
     {
-        if (isset($page->view) && $page->view && strtolower($page->view) !== 'default') {
+        if (isset($page->view) && $page->view && 'default' !== strtolower($page->view)) {
             return $page->view;
         }
 

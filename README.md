@@ -19,18 +19,7 @@ composer require marshmallow/pages
 ### Run the artisan commands
 Publish the configs from the flexible package, migrate to create the pages table and create your Laravel Nova resource to manage your pages.
 ```bash
-php artisan vendor:publish --provider="Marshmallow\Nova\Flexible\FieldServiceProvider"
-php artisan migrate
-php artisan marshmallow:resource Page Pages
-```
-
-### Make the routes available
-Update your `routes/web.php` so the routes of your pages are availabe.
-```php
-/**
- * routes/web.php
- */
-\Marshmallow\Pages\Facades\Page::loadRoutes();
+php artisan pages:install
 ```
 
 ## Usage
@@ -62,12 +51,6 @@ return [
         'sluggable-name-of-your-layout' => \App\Flexible\Layouts\LayoutClassName::class
     ],
 ];
-```
-
-## Use tiny-mce
-You can tell the flexible package to use TinyMCE as your default WYSIWYG editor by updating your `.env` file like below.
-```env
-NOVA_WYSIWYG=\Marshmallow\Nova\TinyMCE\TinyMCE
 ```
 
 ## Changelog

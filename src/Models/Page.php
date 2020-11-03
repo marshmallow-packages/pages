@@ -23,9 +23,8 @@ use Marshmallow\Translatable\Traits\Translatable;
  * Factory maakt een prijs aan
  * Kan meerdere prijzen hebben
  * Geeft 0 euro terug als er geen prijs is
- * Slug is uniek
+ * Slug is uniek.
  */
-
 class Page extends Model
 {
     use HasSlug;
@@ -42,7 +41,7 @@ class Page extends Model
         // 'layout' => FlexibleCast::class,
     ];
 
-    public function ignoreFromTranslations(): array
+    public function notTranslateColumns(): array
     {
         return [
             'view',
@@ -56,8 +55,8 @@ class Page extends Model
         if (config('pages.use_multi_languages')) {
             $locale = App::getLocale();
 
-            if (strpos($url, $locale . '/') !== false) {
-                $url = substr($url, strlen($locale . '/'), strlen($url));
+            if (false !== strpos($url, $locale.'/')) {
+                $url = substr($url, strlen($locale.'/'), strlen($url));
             }
             if ($url === $locale) {
                 $url = '/';
@@ -65,25 +64,25 @@ class Page extends Model
 
             $raw_select_column = DB::raw("REPLACE($model_url_column, ' ', '')");
 
-            if ($url !== '/') {
+            if ('/' !== $url) {
                 /**
-            	 * We also check for escaped urls. Some mysql versions
-            	 * will store product/badpak as product\/badpak. Not all
-            	 * versions do this so we check on both.
-            	 */
+                 * We also check for escaped urls. Some mysql versions
+                 * will store product/badpak as product\/badpak. Not all
+                 * versions do this so we check on both.
+                 */
                 $escaped_url = URL::escape($url);
 
                 $builder->where(
                     $raw_select_column,
                     'LIKE',
                     Str::removeSpaces(
-                        '%"'. $locale .'":"'. $url .'"%'
+                        '%"'.$locale.'":"'.$url.'"%'
                     )
                 )->orWhere(
                     $raw_select_column,
                     'LIKE',
                     Str::removeSpaces(
-                        '%"'. $locale .'":"'. $escaped_url .'"%'
+                        '%"'.$locale.'":"'.$escaped_url.'"%'
                     )
                 );
             } else {
@@ -91,13 +90,13 @@ class Page extends Model
                     $raw_select_column,
                     'LIKE',
                     Str::removeSpaces(
-                        '%"'. $locale .'": null%'
+                        '%"'.$locale.'": null%'
                     )
                 )->orWhere(
                     $raw_select_column,
                     'LIKE',
                     Str::removeSpaces(
-                        '%"'. $locale .'": "/"%'
+                        '%"'.$locale.'": "/"%'
                     )
                 );
             }
@@ -119,7 +118,7 @@ class Page extends Model
 
     public function route($ignore_locale = false)
     {
-        if (config('pages.use_multi_languages') && $ignore_locale === false) {
+        if (config('pages.use_multi_languages') && false === $ignore_locale) {
             return $this->localeRoute();
         }
 
@@ -137,8 +136,8 @@ class Page extends Model
     public function getFullPublicPath()
     {
         $route = $this->route();
-        if (! URL::isInternal($route)) {
-            return env('APP_URL') . $route;
+        if (!URL::isInternal($route)) {
+            return env('APP_URL').$route;
         }
 
         return $route;

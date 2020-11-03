@@ -3,6 +3,7 @@
 namespace Marshmallow\Pages;
 
 use Illuminate\Support\ServiceProvider;
+use Marshmallow\Pages\Commands\InstallPagesCommand;
 
 class PagesServiceProvider extends ServiceProvider
 {
@@ -20,10 +21,14 @@ class PagesServiceProvider extends ServiceProvider
         );
 
         $this->app->singleton(Page::class, function () {
-            return new Page;
+            return new Page();
         });
 
         $this->app->alias(Page::class, 'page');
+
+        $this->commands([
+            InstallPagesCommand::class,
+        ]);
     }
 
     /**
@@ -33,7 +38,7 @@ class PagesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /**
+        /*
          * Views
          */
         $this->loadViewsFrom(__DIR__.'/../views', 'marshmallow');
@@ -45,7 +50,7 @@ class PagesServiceProvider extends ServiceProvider
         ]);
 
         $this->publishes([
-            __DIR__ . '/../config/pages.php' => config_path('pages.php'),
+            __DIR__.'/../config/pages.php' => config_path('pages.php'),
         ]);
     }
 }
