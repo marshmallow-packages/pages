@@ -42,7 +42,7 @@ class Page extends Model
         // 'layout' => FlexibleCast::class,
     ];
 
-    public function ignoreFromTranslations(): array
+    public function notTranslateColumns(): array
     {
         return [
             'view',

@@ -3,6 +3,7 @@
 namespace Marshmallow\Pages;
 
 use Illuminate\Support\ServiceProvider;
+use Marshmallow\Pages\Commands\InstallPagesCommand;
 
 class PagesServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,10 @@ class PagesServiceProvider extends ServiceProvider
         });
 
         $this->app->alias(Page::class, 'page');
+
+        $this->commands([
+            InstallPagesCommand::class,
+        ]);
     }
 
     /**
