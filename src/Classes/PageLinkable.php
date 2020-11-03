@@ -9,7 +9,7 @@ class PageLinkable extends MenuLinkable
 {
     public static function getIdentifier(): string
     {
-        return 'page';
+        return 'page'
     }
 
     public static function getName(): string
@@ -24,7 +24,7 @@ class PageLinkable extends MenuLinkable
 
     public static function getDisplayValue($value = null, array $parameters = null, array $data = null)
     {
-        return 'Page: ' . Page::find($value)->name;
+        return 'Page: '.Page::find($value)->name;
     }
 
     public static function getValue($value = null, array $parameters = null)

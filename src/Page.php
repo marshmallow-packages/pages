@@ -36,12 +36,12 @@ class Page
                 Route::middleware($this->getMiddlewareArray())
                             ->get($page->localeRoute($language), config('pages.controller'))
                             ->name($page->route_name);
-                /**
+                /*
                  * Make sure we load an index route
                  */
                 if (in_array($page->localeRoute($language), [
-                        '/'. app()->getLocale() .'/',
-                        '/'. app()->getLocale(),
+                        '/'.app()->getLocale().'/',
+                        '/'.app()->getLocale(),
                     ])) {
                     Route::middleware($this->getMiddlewareArray())
                             ->get('/', config('pages.controller'))

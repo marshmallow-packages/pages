@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     'view' => 'marshmallow::layout',
 
     'use_multi_languages' => false,

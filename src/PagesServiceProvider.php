@@ -21,7 +21,7 @@ class PagesServiceProvider extends ServiceProvider
         );
 
         $this->app->singleton(Page::class, function () {
-            return new Page;
+            return new Page();
         });
 
         $this->app->alias(Page::class, 'page');
@@ -38,7 +38,7 @@ class PagesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /**
+        /*
          * Views
          */
         $this->loadViewsFrom(__DIR__.'/../views', 'marshmallow');
@@ -50,7 +50,7 @@ class PagesServiceProvider extends ServiceProvider
         ]);
 
         $this->publishes([
-            __DIR__ . '/../config/pages.php' => config_path('pages.php'),
+            __DIR__.'/../config/pages.php' => config_path('pages.php'),
         ]);
     }
 }
