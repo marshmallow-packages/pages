@@ -3,7 +3,7 @@
 namespace Marshmallow\Pages;
 
 use Illuminate\Support\Facades\Route;
-use Marshmallow\MultiLanguage\Models\Language;
+use Marshmallow\Translatable\Models\Language;
 
 class Page
 {
@@ -29,7 +29,7 @@ class Page
     protected function loadTranslateableRoutes()
     {
         $pages = \Marshmallow\Pages\Models\Page::get();
-        $languages = Language::orderBy('code', 'asc')->get();
+        $languages = Language::orderBy('name', 'asc')->get();
 
         foreach ($languages as $language) {
             foreach ($pages as $page) {
