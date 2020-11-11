@@ -18,13 +18,6 @@ use Marshmallow\Sluggable\HasSlug;
 use Marshmallow\Sluggable\SlugOptions;
 use Marshmallow\Translatable\Traits\Translatable;
 
-/**
- * Is sluggable
- * Factory maakt een prijs aan
- * Kan meerdere prijzen hebben
- * Geeft 0 euro terug als er geen prijs is
- * Slug is uniek.
- */
 class Page extends Model
 {
     use HasSlug;
@@ -67,7 +60,7 @@ class Page extends Model
             if ('/' !== $url) {
                 /**
                  * We also check for escaped urls. Some mysql versions
-                 * will store product/badpak as product\/badpak. Not all
+                 * will store product/product-name as product\/product-name. Not all
                  * versions do this so we check on both.
                  */
                 $escaped_url = URL::escape($url);
@@ -131,13 +124,13 @@ class Page extends Model
 
     /**
      * getFullPublicPath() is a required method for the
-     * GT Metrix package.
+     * GT Matrix package.
      */
     public function getFullPublicPath()
     {
         $route = $this->route();
         if (!URL::isInternal($route)) {
-            return env('APP_URL').$route;
+            return config('app.url').$route;
         }
 
         return $route;
