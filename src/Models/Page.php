@@ -2,21 +2,24 @@
 
 namespace Marshmallow\Pages\Models;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Marshmallow\Sluggable\HasSlug;
+use Illuminate\Support\Facades\App;
 use Laravel\Nova\Actions\Actionable;
+use Marshmallow\Sluggable\SlugOptions;
+use Illuminate\Database\Eloquent\Model;
+use Marshmallow\Seoable\Traits\Seoable;
+use Illuminate\Database\Eloquent\Builder;
 use Marshmallow\GTMetrix\Traits\GTMetrix;
 use Marshmallow\HelperFunctions\Facades\Str;
 use Marshmallow\HelperFunctions\Facades\URL;
-use Marshmallow\Nova\Flexible\Concerns\HasFlexible;
-use Marshmallow\Seoable\Traits\Seoable;
-use Marshmallow\Sluggable\HasSlug;
-use Marshmallow\Sluggable\SlugOptions;
+use Marshmallow\Pages\Events\PageWasCreated;
+use Marshmallow\Pages\Events\PageWasDeleted;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Marshmallow\Pages\Events\SlugHasBeenChanged;
 use Marshmallow\Translatable\Traits\Translatable;
+use Marshmallow\Nova\Flexible\Concerns\HasFlexible;
 
 class Page extends Model
 {
