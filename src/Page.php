@@ -3,6 +3,7 @@
 namespace Marshmallow\Pages;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 use Marshmallow\Translatable\Models\Language;
 
 class Page
