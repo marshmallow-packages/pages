@@ -18,6 +18,7 @@ use Marshmallow\Pages\Events\PageWasCreated;
 use Marshmallow\Pages\Events\PageWasDeleted;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Marshmallow\Pages\Events\SlugHasBeenChanged;
+use Marshmallow\Redirectable\Traits\Redirectable;
 use Marshmallow\Translatable\Traits\Translatable;
 use Marshmallow\Nova\Flexible\Concerns\HasFlexible;
 
@@ -30,6 +31,7 @@ class Page extends Model
     use GTMetrix;
     use Actionable;
     use Translatable;
+    use Redirectable;
 
     protected $guarded = [];
 
@@ -132,7 +134,7 @@ class Page extends Model
     public function getFullPublicPath()
     {
         $route = $this->route();
-        if (!URL::isInternal($route)) {
+        if (! URL::isInternal($route)) {
             return config('app.url').$route;
         }
 

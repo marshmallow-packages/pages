@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 use Marshmallow\HelperFunctions\Traits\MigrationHelper;
 
 class CreatePagesTable extends Migration
@@ -16,7 +16,7 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('pages')) {
+        if (! Schema::hasTable('pages')) {
             Schema::create('pages', function (Blueprint $table) {
                 $table->id();
             });

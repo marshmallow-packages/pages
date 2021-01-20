@@ -24,6 +24,7 @@
         "marshmallow/commands": "^1.0",
         "marshmallow/nova-tinymce": "^1.0",
         "marshmallow/translatable": "^1.0",
+        "marshmallow/redirectable": "^1.0",
         "marshmallow/seoable": "^2.3",
         "marshmallow/nova-flexible": "^1.0",
         "marshmallow/gtmetrix": "^1.1",
