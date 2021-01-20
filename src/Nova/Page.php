@@ -42,7 +42,6 @@ class Page extends Resource
         return __('Pages');
     }
 
-
     /**
      * The columns that should be searched.
      *
