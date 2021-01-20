@@ -2,9 +2,9 @@
 
 namespace Marshmallow\Pages\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Marshmallow\Pages\Models\Page;
+use App\Http\Controllers\Controller;
 
 class PageController extends Controller
 {
