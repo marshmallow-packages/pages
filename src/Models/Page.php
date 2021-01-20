@@ -12,6 +12,12 @@ use Laravel\Nova\Actions\Actionable;
 use Marshmallow\GTMetrix\Traits\GTMetrix;
 use Marshmallow\HelperFunctions\Facades\Str;
 use Marshmallow\HelperFunctions\Facades\URL;
+use Marshmallow\Pages\Events\PageWasCreated;
+use Marshmallow\Pages\Events\PageWasDeleted;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Marshmallow\Pages\Events\SlugHasBeenChanged;
+use Marshmallow\Redirectable\Traits\Redirectable;
+use Marshmallow\Translatable\Traits\Translatable;
 use Marshmallow\Nova\Flexible\Concerns\HasFlexible;
 use Marshmallow\Seoable\Traits\Seoable;
 use Marshmallow\Sluggable\HasSlug;
@@ -27,6 +33,7 @@ class Page extends Model
     use GTMetrix;
     use Actionable;
     use Translatable;
+    use Redirectable;
 
     protected $guarded = [];
 

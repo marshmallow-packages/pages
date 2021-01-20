@@ -3,13 +3,14 @@
 namespace Marshmallow\Pages\Nova;
 
 use App\Nova\Resource;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Marshmallow\GTMetrix\Actions\CheckGTMetrixScore;
-use Marshmallow\GTMetrix\GTMetrixField;
-use Marshmallow\Nova\Flexible\Nova\Traits\HasFlexable;
 use Marshmallow\Seoable\Seoable;
+use Laravel\Nova\Fields\MorphMany;
+use Illuminate\Database\Eloquent\Model;
+use Marshmallow\GTMetrix\GTMetrixField;
+use Marshmallow\GTMetrix\Actions\CheckGTMetrixScore;
+use Marshmallow\Nova\Flexible\Nova\Traits\HasFlexable;
 use Marshmallow\Translatable\Traits\TranslatableFields;
 
 class Page extends Resource
@@ -50,15 +51,14 @@ class Page extends Resource
     public function translatableFields(Request $request)
     {
         return [
-            Text::make('Name')->sortable()->rules(['required']),
-            Text::make('Slug')->sortable()
+            Text::make(__('Name'), 'name')->sortable()->rules(['required']),
+            Text::make(__('Slug'), 'slug')->rules(['required'])
                 ->help(
-                    'This is the URL of the page.'.
-                    'This is not automaticly updated when you change the name of '.
-                    'the page. Please don\'t change the url unless you '.
-                    'really have to.'
+                    __('This is the URL of the page. This is not automaticly updated when you change the name of the page. Please don\'t change the url unless you really have to.')
                 )
                 ->hideWhenCreating()
+                ->creationRules('unique:pages,slug')
+                ->updateRules('unique:pages,slug,{{resourceId}}')
                 ->displayUsing(
                     function ($value, Model $model, $attribute) {
                         return sprintf(
@@ -71,16 +71,15 @@ class Page extends Resource
 
             GTMetrixField::make('GT Metrix'),
 
-            Text::make('View')->help(
-                'This is the view file we use as the base template.'.
-                'If you wish the use the view from the config you'.
-                'can leave this field empty or set it to "Default".'.
-                'Otherwise set it to the blade view selector.'
+            Text::make(__('View'), 'view')->help(
+                __('This is the view file we use as the base template. If you wish the use the view from the config you can leave this field empty or set it to "Default". Otherwise set it to the blade view selector.')
             ),
 
             $this->getFlex(),
 
             Seoable::make('Seo'),
+
+            MorphMany::make(__('Redirect'), 'redirectable'),
         ];
     }
 
