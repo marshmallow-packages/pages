@@ -3,17 +3,31 @@
 namespace Marshmallow\Pages;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 use Marshmallow\Translatable\Models\Language;
 
 class Page
 {
-    public function loadRoutes()
+    public function routes()
     {
+        if (! Schema::hasColumn('pages', 'deleted_at')) {
+            /**
+             * Don't load the routes if deleted_at
+             * doesnt exist. If this is the case, the
+             * migrations haven't fully run yet.
+             */
+            return;
+        }
+
         if (config('pages.use_multi_languages')) {
             $this->loadTranslateableRoutes();
         } else {
             $this->loadNoneTranslateableRoutes();
         }
+    }
+    public function loadRoutes()
+    {
+        $this->routes();
     }
 
     protected function loadNoneTranslateableRoutes()

@@ -10,4 +10,10 @@ return [
     'middleware' => \Marshmallow\Pages\Http\Middleware\PageMiddleware::class,
 
     'controller' => '\Marshmallow\Pages\Http\Controllers\PageController@show',
+
+    /**
+     * Should the active page be added to the
+     * marshmallow breadcrumb stack?
+     */
+    'breadcrumb' => false,
 ];

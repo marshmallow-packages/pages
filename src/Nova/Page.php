@@ -32,6 +32,17 @@ class Page extends Resource
      */
     public static $title = 'name';
 
+    public static function label()
+    {
+        return __('Page');
+    }
+
+    public static function singularLabel()
+    {
+        return __('Pages');
+    }
+
+
     /**
      * The columns that should be searched.
      *
