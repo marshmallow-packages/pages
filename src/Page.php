@@ -25,6 +25,7 @@ class Page
             $this->loadNoneTranslateableRoutes();
         }
     }
+
     public function loadRoutes()
     {
         $this->routes();
