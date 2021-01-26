@@ -10,25 +10,41 @@ class Page
 {
     public function routes()
     {
-        if (! Schema::hasColumn('pages', 'deleted_at')) {
-            /**
-             * Don't load the routes if deleted_at
-             * doesnt exist. If this is the case, the
-             * migrations haven't fully run yet.
-             */
-            return;
-        }
-
-        if (config('pages.use_multi_languages')) {
-            $this->loadTranslateableRoutes();
-        } else {
-            $this->loadNoneTranslateableRoutes();
+        if ($this->shouldLoadRoutes()) {
+            if (config('pages.use_multi_languages')) {
+                $this->loadTranslateableRoutes();
+            } else {
+                $this->loadNoneTranslateableRoutes();
+            }
         }
     }
 
     public function loadRoutes()
     {
         $this->routes();
+    }
+
+    public function shouldLoadRoutes(): bool
+    {
+        if (! Schema::hasTable('pages')) {
+            /**
+             * Don't load the routes if the pages table
+             * doesnt exist. If this is the case, the
+             * migrations haven't fully run yet.
+             */
+            return false;
+        }
+
+        if (! Schema::hasColumn('pages', 'deleted_at')) {
+            /**
+             * Don't load the routes if deleted_at
+             * doesnt exist. If this is the case, the
+             * migrations haven't fully run yet.
+             */
+            return false;
+        }
+
+        return true;
     }
 
     protected function loadNoneTranslateableRoutes()
