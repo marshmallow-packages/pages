@@ -72,7 +72,7 @@ class Page extends Resource
                 ->displayUsing(
                     function ($value, Model $model, $attribute) {
                         return sprintf(
-                            '<a href="%s" target="_blank">%s</a>',
+                            '<a href="%s" class="link" target="_blank">%s</a>',
                             $model->route(),
                             $value
                         );
