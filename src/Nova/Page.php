@@ -81,7 +81,7 @@ class Page extends Resource
 
             GTMetrixField::make('GT Metrix'),
 
-            Text::make(__('View'), 'view')->help(
+            Text::make(__('Page view'), 'view')->help(
                 __('This is the view file we use as the base template. If you wish the use the view from the config you can leave this field empty or set it to "Default". Otherwise set it to the blade view selector.')
             ),
 
