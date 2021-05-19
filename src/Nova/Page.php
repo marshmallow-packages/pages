@@ -3,8 +3,10 @@
 namespace Marshmallow\Pages\Nova;
 
 use App\Nova\Resource;
+use Eminiarts\Tabs\Tabs;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Eminiarts\Tabs\TabsOnEdit;
 use Marshmallow\Seoable\Seoable;
 use Laravel\Nova\Fields\MorphMany;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +17,7 @@ use Marshmallow\Translatable\Traits\TranslatableFields;
 
 class Page extends Resource
 {
+    use TabsOnEdit;
     use HasFlexable;
     use TranslatableFields;
 
@@ -61,35 +64,42 @@ class Page extends Resource
     public function translatableFields(Request $request)
     {
         return [
-            Text::make(__('Name'), 'name')->sortable()->rules(['required']),
-            Text::make(__('Slug'), 'slug')->rules(['required'])
-                ->help(
-                    __('This is the URL of the page. This is not automaticly updated when you change the name of the page. Please don\'t change the url unless you really have to.')
-                )
-                ->hideWhenCreating()
-                ->creationRules('unique:pages,slug')
-                ->updateRules('unique:pages,slug,{{resourceId}}')
-                ->displayUsing(
-                    function ($value, Model $model, $attribute) {
-                        return sprintf(
-                            '<a href="%s" class="link" target="_blank">%s</a>',
-                            $model->route(),
-                            $value
-                        );
-                    }
-                )->asHtml(),
+            new Tabs('Page editor', [
+                'Main' => [
+                    Text::make(__('Name'), 'name')->sortable()->rules(['required']),
+                    $this->getFlex(__('Layout'), 'layout'),
+                ],
+                'SEO' => [
+                    Text::make(__('Slug'), 'slug')->rules(['required'])
+                        ->help(
+                            __('This is the URL of the page. This is not automaticly updated when you change the name of the page. Please don\'t change the url unless you really have to.')
+                        )
+                        ->hideWhenCreating()
+                        ->creationRules('unique:pages,slug')
+                        ->updateRules('unique:pages,slug,{{resourceId}}')
+                        ->displayUsing(
+                            function ($value, Model $model, $attribute) {
+                                return sprintf(
+                                    '<a href="%s" class="link" target="_blank">%s</a>',
+                                    $model->route(),
+                                    $value
+                                );
+                            }
+                        )->asHtml(),
 
-            GTMetrixField::make('GT Metrix'),
+                    Seoable::make('Seo'),
+                ],
+                'Advanced' => [
 
-            Text::make(__('Page view'), 'view')->help(
-                __('This is the view file we use as the base template. If you wish the use the view from the config you can leave this field empty or set it to "Default". Otherwise set it to the blade view selector.')
-            ),
+                    GTMetrixField::make('GT Metrix'),
 
-            $this->getFlex(__('Layout'), 'layout'),
+                    Text::make(__('Page view'), 'view')->help(
+                        __('This is the view file we use as the base template. If you wish the use the view from the config you can leave this field empty or set it to "Default". Otherwise set it to the blade view selector.')
+                    ),
+                ],
 
-            Seoable::make('Seo'),
-
-            MorphMany::make(__('Redirect'), 'redirectable'),
+                MorphMany::make(__('Redirect'), 'redirectable'),
+            ]),
         ];
     }
 
