@@ -1,7 +1,9 @@
 {
     "name": "marshmallow/pages",
     "description": "Deze package geeft de mogelijkheid om gemakkelijk pagina's te beheren in Laravel. Dit is eigelijk een verzameling van handinge composer packages van derde en samengevoegd om snel te kunnen hergebruiken.",
-    "keywords": ["marshmallow"],
+    "keywords": [
+        "marshmallow"
+    ],
     "homepage": "https://github.com/Marshmallow-Development/",
     "type": "library",
     "license": "MIT",
@@ -19,6 +21,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": "^7.4|^8.0",
+        "eminiarts/nova-tabs": "^1.4",
         "marshmallow/sluggable": "^1.0",
         "marshmallow/helpers": "^2.0",
         "marshmallow/commands": "^1.0",
