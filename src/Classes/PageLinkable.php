@@ -19,17 +19,17 @@ class PageLinkable extends MenuLinkable
 
     public static function getOptions($locale): array
     {
-        return Page::all()->pluck('name', 'id')->toArray();
+        return config('pages.model')::all()->pluck('name', 'id')->toArray();
     }
 
     public static function getDisplayValue($value = null, array $parameters = null, array $data = null)
     {
-        return 'Page: '.Page::find($value)->name;
+        return 'Page: ' . config('pages.model')::find($value)->name;
     }
 
     public static function getValue($value = null, array $parameters = null)
     {
-        return Page::find($value);
+        return config('pages.model')::find($value);
     }
 
     public static function getFields(): array

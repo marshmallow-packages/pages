@@ -11,7 +11,7 @@ class PageController extends Controller
 {
     public function show(Request $request)
     {
-        $page = Page::getByUrl($request)->first()->useForSeo();
+        $page = config('pages.model')::getByUrl($request)->first()->useForSeo();
 
         if (config('pages.breadcrumb')) {
             Breadcrumb::add($page->name, $page->getFullPublicPath());
