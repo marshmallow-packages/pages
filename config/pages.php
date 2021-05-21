@@ -7,6 +7,8 @@ return [
 
     'wysiwyg' => env('NOVA_WYSIWYG', \Laravel\Nova\Fields\Trix::class),
 
+    'model' => \Marshmallow\Pages\Models\Page::class,
+
     'middleware' => \Marshmallow\Pages\Http\Middleware\PageMiddleware::class,
 
     'controller' => '\Marshmallow\Pages\Http\Controllers\PageController@show',

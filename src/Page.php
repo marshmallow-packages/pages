@@ -26,7 +26,7 @@ class Page
 
     public function shouldLoadRoutes(): bool
     {
-        if (! Schema::hasTable('pages')) {
+        if (!Schema::hasTable('pages')) {
             /**
              * Don't load the routes if the pages table
              * doesnt exist. If this is the case, the
@@ -35,7 +35,7 @@ class Page
             return false;
         }
 
-        if (! Schema::hasColumn('pages', 'deleted_at')) {
+        if (!Schema::hasColumn('pages', 'deleted_at')) {
             /**
              * Don't load the routes if deleted_at
              * doesnt exist. If this is the case, the
@@ -49,7 +49,7 @@ class Page
 
     protected function loadNoneTranslateableRoutes()
     {
-        $pages = \Marshmallow\Pages\Models\Page::get();
+        $pages = config('pages.model')::get();
         foreach ($pages as $page) {
             Route::middleware($this->getMiddlewareArray())
                 ->get($page->route(), config('pages.controller'))
@@ -59,24 +59,24 @@ class Page
 
     protected function loadTranslateableRoutes()
     {
-        $pages = \Marshmallow\Pages\Models\Page::get();
+        $pages = config('pages.model')::get();
         $languages = Language::orderBy('name', 'asc')->get();
 
         foreach ($languages as $language) {
             foreach ($pages as $page) {
                 Route::middleware($this->getMiddlewareArray())
-                            ->get($page->localeRoute($language), config('pages.controller'))
-                            ->name($page->route_name);
+                    ->get($page->localeRoute($language), config('pages.controller'))
+                    ->name($page->route_name);
                 /*
                  * Make sure we load an index route
                  */
                 if (in_array($page->localeRoute($language), [
-                        '/'.app()->getLocale().'/',
-                        '/'.app()->getLocale(),
-                    ])) {
+                    '/' . app()->getLocale() . '/',
+                    '/' . app()->getLocale(),
+                ])) {
                     Route::middleware($this->getMiddlewareArray())
-                            ->get('/', config('pages.controller'))
-                            ->name($page->route_name);
+                        ->get('/', config('pages.controller'))
+                        ->name($page->route_name);
                 }
             }
         }
