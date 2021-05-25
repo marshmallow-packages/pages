@@ -64,7 +64,7 @@ class Page extends Resource
     public function translatableFields(Request $request)
     {
         return [
-            new Tabs('Page editor', [
+            (new Tabs('Page editor', [
                 'Main' => [
                     Text::make(__('Name'), 'name')->sortable()->rules(['required']),
                     $this->getFlex(__('Layout'), 'layout'),
@@ -99,7 +99,7 @@ class Page extends Resource
                 ],
 
                 MorphMany::make(__('Redirect'), 'redirectable'),
-            ]),
+            ]))->withToolbar(),
         ];
     }
 
