@@ -3,7 +3,6 @@
 namespace Marshmallow\Pages\Nova;
 
 use App\Nova\Resource;
-use Eminiarts\Tabs\Tabs;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Eminiarts\Tabs\TabsOnEdit;
@@ -13,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Marshmallow\GTMetrix\GTMetrixField;
 use Marshmallow\GTMetrix\Actions\CheckGTMetrixScore;
 use Marshmallow\Nova\Flexible\Nova\Traits\HasFlexable;
+use Marshmallow\Translatable\Facades\TranslatableTabs;
 use Marshmallow\Translatable\Traits\TranslatableFields;
 
 class Page extends Resource
@@ -64,7 +64,7 @@ class Page extends Resource
     public function translatableFields(Request $request)
     {
         return [
-            (new Tabs('Page editor', [
+            TranslatableTabs::make($this, 'Page editor', [
                 'Main' => [
                     Text::make(__('Name'), 'name')->sortable()->rules(['required']),
                     $this->getFlex(__('Layout'), 'layout'),
@@ -99,7 +99,7 @@ class Page extends Resource
                 ],
 
                 MorphMany::make(__('Redirect'), 'redirectable'),
-            ]))->withToolbar(),
+            ])->withToolbar(),
         ];
     }
 
