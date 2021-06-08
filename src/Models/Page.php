@@ -50,8 +50,8 @@ class Page extends Model
         if (config('pages.use_multi_languages')) {
             $locale = App::getLocale();
 
-            if (false !== strpos($url, $locale.'/')) {
-                $url = substr($url, strlen($locale.'/'), strlen($url));
+            if (false !== strpos($url, $locale . '/')) {
+                $url = substr($url, strlen($locale . '/'), strlen($url));
             }
             if ($url === $locale) {
                 $url = '/';
@@ -71,13 +71,13 @@ class Page extends Model
                     $raw_select_column,
                     'LIKE',
                     Str::removeSpaces(
-                        '%"'.$locale.'":"'.$url.'"%'
+                        '%"' . $locale . '":"' . $url . '"%'
                     )
                 )->orWhere(
                     $raw_select_column,
                     'LIKE',
                     Str::removeSpaces(
-                        '%"'.$locale.'":"'.$escaped_url.'"%'
+                        '%"' . $locale . '":"' . $escaped_url . '"%'
                     )
                 );
             } else {
@@ -85,13 +85,13 @@ class Page extends Model
                     $raw_select_column,
                     'LIKE',
                     Str::removeSpaces(
-                        '%"'.$locale.'": null%'
+                        '%"' . $locale . '": null%'
                     )
                 )->orWhere(
                     $raw_select_column,
                     'LIKE',
                     Str::removeSpaces(
-                        '%"'.$locale.'": "/"%'
+                        '%"' . $locale . '": "/"%'
                     )
                 );
             }
@@ -131,8 +131,8 @@ class Page extends Model
     public function getFullPublicPath()
     {
         $route = $this->route();
-        if (! URL::isInternal($route)) {
-            return config('app.url').$route;
+        if (!URL::isInternal($route)) {
+            return config('app.url') . $route;
         }
 
         return $route;
