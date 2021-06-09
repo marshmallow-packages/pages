@@ -1,6 +1,18 @@
 <?php
 
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Translate resources in Nova
+    |--------------------------------------------------------------------------
+    |
+    | When this is set to true, you will see the language selector when editing
+    | a resource in Laravel Nova.
+    |
+    */
+    'nova_translatable_fields' => false,
+
     'view' => 'marshmallow::layout',
 
     'use_multi_languages' => false,

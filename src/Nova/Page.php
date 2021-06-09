@@ -54,6 +54,11 @@ class Page extends Resource
         'name',
     ];
 
+    public function showTranslatableFields()
+    {
+        return config('pages.nova_translatable_fields');
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
