@@ -54,7 +54,7 @@ class Page extends Resource
         'name',
     ];
 
-    public function showTranslatableFields()
+    public function translatableFieldsEnabled()
     {
         return config('pages.nova_translatable_fields');
     }
