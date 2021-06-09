@@ -11,7 +11,7 @@ return [
     | a resource in Laravel Nova.
     |
     */
-    'nova_translatable_fields' => false,
+    'nova_translatable_fields' => true,
 
     'view' => 'marshmallow::layout',
 
