@@ -22,20 +22,11 @@ class PageController extends Controller
             View::share('page', $page);
         }
 
-        return view($this->getView($page))->with(
+        return view($page->getView())->with(
             [
                 'page' => $page,
                 'layouts' => $page->flex('layout'),
             ]
         );
-    }
-
-    protected function getView(Page $page)
-    {
-        if (isset($page->view) && $page->view && 'default' !== strtolower($page->view)) {
-            return $page->view;
-        }
-
-        return config('pages.view');
     }
 }
