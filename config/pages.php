@@ -13,6 +13,8 @@ return [
     */
     'nova_translatable_fields' => true,
 
+    'share_page_to_view_data' => false,
+
     'view' => 'marshmallow::layout',
 
     'use_multi_languages' => false,
