@@ -138,6 +138,15 @@ class Page extends Model
         return $route;
     }
 
+    public function getView()
+    {
+        if (isset($this->view) && $this->view && 'default' !== strtolower($this->view)) {
+            return $this->view;
+        }
+
+        return config('pages.view');
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';

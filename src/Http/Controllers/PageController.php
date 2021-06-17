@@ -5,6 +5,7 @@ namespace Marshmallow\Pages\Http\Controllers;
 use Illuminate\Http\Request;
 use Marshmallow\Pages\Models\Page;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\View;
 use Marshmallow\Breadcrumb\Facades\Breadcrumb;
 
 class PageController extends Controller
@@ -17,20 +18,15 @@ class PageController extends Controller
             Breadcrumb::add($page->name, $page->getFullPublicPath());
         }
 
-        return view($this->getView($page))->with(
+        if (config('pages.share_page_to_view_data')) {
+            View::share('page', $page);
+        }
+
+        return view($page->getView())->with(
             [
                 'page' => $page,
                 'layouts' => $page->flex('layout'),
             ]
         );
-    }
-
-    protected function getView(Page $page)
-    {
-        if (isset($page->view) && $page->view && 'default' !== strtolower($page->view)) {
-            return $page->view;
-        }
-
-        return config('pages.view');
     }
 }
