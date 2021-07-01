@@ -21,6 +21,8 @@ class Page extends Resource
     use HasFlexable;
     use TranslatableFields;
 
+    public static $group_icon = '<svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><rect fill="none" height="24" width="24"/><path fill="var(--sidebar-icon)" d="M2,20h20v4H2V20z M5.49,17h2.42l1.27-3.58h5.65L16.09,17h2.42L13.25,3h-2.5L5.49,17z M9.91,11.39l2.03-5.79h0.12l2.03,5.79 H9.91z"/></svg>';
+
     /**
      * The model the resource corresponds to.
      *
@@ -34,6 +36,11 @@ class Page extends Resource
      * @var string
      */
     public static $title = 'name';
+
+    public static function group()
+    {
+        return __('Content');
+    }
 
     public static function label()
     {
