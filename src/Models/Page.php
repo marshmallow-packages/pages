@@ -124,6 +124,14 @@ class Page extends Model
         ]);
     }
 
+    public function temporaryRoute($valid_ttl_minutes = 30)
+    {
+        return URL::signed(
+            $this->route(),
+            now()->addMinutes($valid_ttl_minutes)
+        );
+    }
+
     /**
      * getFullPublicPath() is a required method for the
      * GT Matrix package.
