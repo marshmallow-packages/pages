@@ -82,6 +82,11 @@ class Page
         }
     }
 
+    public function getFlexConfig()
+    {
+        return config('pages.flexible_config') ?? [];
+    }
+
     protected function getMiddlewareArray()
     {
         return [

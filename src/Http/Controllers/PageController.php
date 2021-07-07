@@ -13,6 +13,11 @@ class PageController extends Controller
     public function show(Request $request)
     {
         $page = config('pages.model')::getByUrl($request)->first()->useForSeo();
+        if (!$page->active) {
+            if (!$request->hasValidSignature(false)) {
+                abort(404);
+            }
+        }
 
         if (config('pages.breadcrumb')) {
             Breadcrumb::add($page->name, $page->getFullPublicPath());
