@@ -26,7 +26,10 @@ class Page
 
     public function shouldLoadRoutes(): bool
     {
-        if (!Schema::hasTable('pages')) {
+        $connection = config('pages.database.connection');
+        $schema_builder = Schema::connection($connection);
+
+        if (!$schema_builder->hasTable('pages')) {
             /**
              * Don't load the routes if the pages table
              * doesnt exist. If this is the case, the
@@ -35,7 +38,7 @@ class Page
             return false;
         }
 
-        if (!Schema::hasColumn('pages', 'deleted_at')) {
+        if (!$schema_builder->hasColumn('pages', 'deleted_at')) {
             /**
              * Don't load the routes if deleted_at
              * doesnt exist. If this is the case, the
