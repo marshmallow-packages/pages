@@ -13,6 +13,10 @@ return [
     |
     */
 
+    'database' => [
+        'connection' => null,
+    ],
+
     'view' => 'marshmallow::layout',
 
     'wysiwyg' => env('NOVA_WYSIWYG', \Laravel\Nova\Fields\Trix::class),
