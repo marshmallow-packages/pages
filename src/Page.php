@@ -97,4 +97,13 @@ class Page
             config('pages.middleware'),
         ];
     }
+
+    public function table()
+    {
+        if (config('pages.database.connection')) {
+            return config('pages.database.connection') . '.pages';
+        }
+
+        return 'pages';
+    }
 }
