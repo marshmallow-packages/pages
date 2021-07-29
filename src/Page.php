@@ -8,6 +8,16 @@ use Marshmallow\Translatable\Models\Language;
 
 class Page
 {
+    public function __construct()
+    {
+        $this->pages = config('pages.model')::get();
+    }
+
+    public function find($key)
+    {
+        return $this->pages->where('id', $key)->first();
+    }
+
     public function routes()
     {
         if ($this->shouldLoadRoutes()) {
