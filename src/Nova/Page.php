@@ -84,6 +84,8 @@ class Page extends Resource
      */
     public function translatableFields(Request $request)
     {
+        $table = PageFacade::table();
+
         return [
             TranslatableTabs::make($this, 'Page editor', [
                 'Main' => [
@@ -96,8 +98,8 @@ class Page extends Resource
                             __('This is the URL of the page. This is not automaticly updated when you change the name of the page. Please don\'t change the url unless you really have to.')
                         )
                         ->hideWhenCreating()
-                        ->creationRules('unique:pages,slug')
-                        ->updateRules('unique:pages,slug,{{resourceId}}')
+                        ->creationRules("unique:{$table},slug")
+                        ->updateRules("unique:{$table},slug,{{resourceId}}")
                         ->displayUsing(
                             function ($value, Model $model, $attribute) {
                                 if ($model->hide_link_from_index) {
