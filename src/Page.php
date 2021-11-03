@@ -10,7 +10,9 @@ class Page
 {
     public function __construct()
     {
-        $this->pages = config('pages.model')::get();
+        if ($this->migrationsAreRun()) {
+            $this->pages = config('pages.model')::get();
+        }
     }
 
     public function find($key)
@@ -34,7 +36,7 @@ class Page
         $this->routes();
     }
 
-    public function shouldLoadRoutes(): bool
+    public function migrationsAreRun(): bool
     {
         $connection = config('pages.database.connection');
         $schema_builder = Schema::connection($connection);
@@ -58,6 +60,11 @@ class Page
         }
 
         return true;
+    }
+
+    public function shouldLoadRoutes(): bool
+    {
+        return $this->migrationsAreRun();
     }
 
     protected function loadNoneTranslateableRoutes()
