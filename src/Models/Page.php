@@ -15,6 +15,7 @@ use Marshmallow\GTMetrix\Traits\GTMetrix;
 use Marshmallow\HelperFunctions\Facades\Str;
 use Marshmallow\HelperFunctions\Facades\URL;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Marshmallow\Seoable\Traits\SeoSitemapTrait;
 use Marshmallow\Redirectable\Traits\Redirectable;
 use Marshmallow\Translatable\Traits\Translatable;
 use Marshmallow\Nova\Flexible\Concerns\HasFlexible;
@@ -22,19 +23,16 @@ use Marshmallow\Nova\Flexible\Concerns\HasFlexible;
 class Page extends Model
 {
     use HasSlug;
-    use SoftDeletes;
-    use HasFlexible;
     use Seoable;
     use GTMetrix;
     use Actionable;
+    use SoftDeletes;
+    use HasFlexible;
     use Translatable;
     use Redirectable;
+    use SeoSitemapTrait;
 
     protected $guarded = [];
-
-    protected $casts = [
-        // 'layout' => FlexibleCast::class,
-    ];
 
     public function notTranslateColumns(): array
     {
@@ -158,5 +156,26 @@ class Page extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    /**
+     * Get the Page url by item
+     *
+     * @return string
+     */
+    public function getSitemapItemUrl(): string
+    {
+        return $this->route();
+    }
+
+    /**
+     * Query all the Page items which should be
+     * part of the sitemap (crawlable for google).
+     *
+     * @return Builder
+     */
+    public static function getSitemapItems()
+    {
+        return static::get();
     }
 }
