@@ -110,7 +110,6 @@ class Page
     protected function getMiddlewareArray()
     {
         return [
-            'web',
             config('pages.middleware'),
         ];
     }
