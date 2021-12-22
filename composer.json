@@ -31,7 +31,7 @@
         "marshmallow/seoable": "^2.3",
         "marshmallow/nova-flexible": "^1.0",
         "marshmallow/gtmetrix": "^1.1",
-        "mdixon18/fontawesome": "^0.1.1 || ^0.2.0",
+        "marshmallow/nova-fontawesome": "^1.0.0",
         "laravel/helpers": "^1.2"
     },
     "autoload": {
