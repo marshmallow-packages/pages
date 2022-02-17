@@ -5,6 +5,7 @@ namespace Marshmallow\Pages;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Marshmallow\Translatable\Models\Language;
+use Marshmallow\Pages\Models\Page as PageModel;
 
 class Page
 {
@@ -71,7 +72,7 @@ class Page
     {
         $pages = config('pages.model')::get();
         foreach ($pages as $page) {
-            Route::middleware($this->getMiddlewareArray())
+            Route::middleware($this->getMiddlewareArray($page))
                 ->get($page->route(), config('pages.controller'))
                 ->name($page->route_name);
         }
@@ -84,7 +85,7 @@ class Page
 
         foreach ($languages as $language) {
             foreach ($pages as $page) {
-                Route::middleware($this->getMiddlewareArray())
+                Route::middleware($this->getMiddlewareArray($page))
                     ->get($page->localeRoute($language), config('pages.controller'))
                     ->name($page->route_name);
                 /*
@@ -94,7 +95,7 @@ class Page
                     '/' . app()->getLocale() . '/',
                     '/' . app()->getLocale(),
                 ])) {
-                    Route::middleware($this->getMiddlewareArray())
+                    Route::middleware($this->getMiddlewareArray($page))
                         ->get('/', config('pages.controller'))
                         ->name($page->route_name);
                 }
@@ -107,11 +108,17 @@ class Page
         return config('pages.flexible_config') ?? [];
     }
 
-    protected function getMiddlewareArray()
+    protected function getMiddlewareArray(PageModel $page = null)
     {
-        return [
-            config('pages.middleware'),
+        $middleware = [
+            config('pages.middleware')
         ];
+
+        if ($page && $page->middleware && is_array($page->middleware)) {
+            $middleware = array_merge($middleware, $page->middleware);
+        }
+
+        return $middleware;
     }
 
     public function table()

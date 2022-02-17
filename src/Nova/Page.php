@@ -6,6 +6,7 @@ use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Eminiarts\Tabs\TabsOnEdit;
+use Marshmallow\TagsField\Tags;
 use Laravel\Nova\Fields\Boolean;
 use Marshmallow\Seoable\Seoable;
 use Laravel\Nova\Fields\MorphMany;
@@ -139,6 +140,8 @@ class Page extends Resource
                     Boolean::make(__('Hide link from index'), 'hide_link_from_index')->help(
                         __('Some pages don\'t have a default url to visit from the index of the pages module because it needs more information. For instance user information or order information. If you enable this, the clickable link will be hidden on the pages index page.')
                     )->hideFromIndex(),
+
+                    Tags::make(__('Middleware'), 'middleware')->hideFromIndex()->help(__('You can add extra middleware to this page. This is useful if you want to add a middleware to a page that is not the default one. Please use the <strong>full namespace</strong> of the middleware. <strong>Eq: \App\Http\Middleware\HasActiveShoppingCartMiddleware</strong>'))->addMoreText(__('Add middleware...')),
                 ],
 
                 MorphMany::make(__('Redirect'), 'redirectable'),
