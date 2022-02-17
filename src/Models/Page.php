@@ -34,6 +34,10 @@ class Page extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'middleware' => 'array',
+    ];
+
     public function notTranslateColumns(): array
     {
         return [
