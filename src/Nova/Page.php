@@ -13,7 +13,6 @@ use Marshmallow\Seoable\Seoable;
 use Laravel\Nova\Fields\MorphMany;
 use Illuminate\Database\Eloquent\Model;
 use Marshmallow\GTMetrix\GTMetrixField;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Marshmallow\Pages\Facades\Page as PageFacade;
 use Marshmallow\GTMetrix\Actions\CheckGTMetrixScore;
 use Marshmallow\Nova\Flexible\Nova\Traits\HasFlexable;
