@@ -28,9 +28,9 @@
         "marshmallow/nova-tinymce": "^1.0",
         "marshmallow/translatable": "^1.0",
         "marshmallow/redirectable": "^1.0",
-        "marshmallow/seoable": "^2.3",
+        "marshmallow/seoable": "dev-nova4",
         "marshmallow/nova-flexible": "*",
-        "marshmallow/gtmetrix": "^1.1",
+        "marshmallow/gtmetrix": "dev-nova4",
         "marshmallow/nova-fontawesome": "^1.0.0",
         "laravel/nova": "^4.0",
         "laravel/helpers": "^1.2"
