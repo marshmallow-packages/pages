@@ -12,6 +12,7 @@ use Marshmallow\Seoable\Seoable;
 use Laravel\Nova\Fields\MorphMany;
 use Illuminate\Database\Eloquent\Model;
 use Marshmallow\GTMetrix\GTMetrixField;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Marshmallow\Pages\Facades\Page as PageFacade;
 use Marshmallow\GTMetrix\Actions\CheckGTMetrixScore;
 use Marshmallow\Nova\Flexible\Nova\Traits\HasFlexable;
@@ -20,7 +21,6 @@ use Marshmallow\Translatable\Traits\TranslatableFields;
 
 class Page extends Resource
 {
-    use TabsOnEdit;
     use HasFlexable;
     use TranslatableFields;
 
@@ -79,7 +79,7 @@ class Page extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param \Illuminate\Http\Request $request Request
+     * @param \Illuminate\Http\Request $request NovaRequest
      *
      * @return array
      */
@@ -154,7 +154,7 @@ class Page extends Resource
      *
      * @return array
      */
-    public function cards(Request $request)
+    public function cards(NovaRequest $request)
     {
         return [];
     }
@@ -164,7 +164,7 @@ class Page extends Resource
      *
      * @return array
      */
-    public function filters(Request $request)
+    public function filters(NovaRequest $request)
     {
         return [];
     }
@@ -174,7 +174,7 @@ class Page extends Resource
      *
      * @return array
      */
-    public function lenses(Request $request)
+    public function lenses(NovaRequest $request)
     {
         return [];
     }
@@ -184,7 +184,7 @@ class Page extends Resource
      *
      * @return array
      */
-    public function actions(Request $request)
+    public function actions(NovaRequest $request)
     {
         return [
             new CheckGTMetrixScore(),
