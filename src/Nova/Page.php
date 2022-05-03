@@ -79,11 +79,11 @@ class Page extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param \Illuminate\Http\Request $request NovaRequest
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      *
      * @return array
      */
-    public function translatableFields(Request $request)
+    public function translatableFields(NovaRequest $request)
     {
         $table = PageFacade::table();
 
