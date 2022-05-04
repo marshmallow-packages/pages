@@ -11,7 +11,6 @@ use Marshmallow\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
 use Marshmallow\Seoable\Traits\Seoable;
 use Illuminate\Database\Eloquent\Builder;
-use Marshmallow\GTMetrix\Traits\GTMetrix;
 use Marshmallow\HelperFunctions\Facades\Str;
 use Marshmallow\HelperFunctions\Facades\URL;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -24,7 +23,6 @@ class Page extends Model
 {
     use HasSlug;
     use Seoable;
-    use GTMetrix;
     use Actionable;
     use SoftDeletes;
     use HasFlexible;
