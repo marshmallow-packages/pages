@@ -22,8 +22,6 @@ class Page extends Resource
     use TranslatableFields;
     use HasTabs;
 
-    public static $group_icon = '<svg xmlns="http://www.w3.org/2000/svg" class="sidebar-icon" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><rect fill="none" height="24" width="24"/><path fill="var(--sidebar-icon)" d="M2,20h20v4H2V20z M5.49,17h2.42l1.27-3.58h5.65L16.09,17h2.42L13.25,3h-2.5L5.49,17z M9.91,11.39l2.03-5.79h0.12l2.03,5.79 H9.91z"/></svg>';
-
     /**
      * The model the resource corresponds to.
      *
@@ -113,8 +111,12 @@ class Page extends Resource
                                     $icon = '<span title="' . __('Inactive') . '" class="inline-flex ml-3" style="color:#bbb;"><svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18"><path fill="#bbb" d="M19.35 10.04C18.67 6.59 15.64 4 12 4c-1.48 0-2.85.43-4.01 1.17l1.46 1.46C10.21 6.23 11.08 6 12 6c3.04 0 5.5 2.46 5.5 5.5v.5H19c1.66 0 3 1.34 3 3 0 1.13-.64 2.11-1.56 2.62l1.45 1.45C23.16 18.16 24 16.68 24 15c0-2.64-2.05-4.78-4.65-4.96zM3 5.27l2.75 2.74C2.56 8.15 0 10.77 0 14c0 3.31 2.69 6 6 6h11.73l2 2L21 20.73 4.27 4 3 5.27zM7.73 10l8 8H6c-2.21 0-4-1.79-4-4s1.79-4 4-4h1.73z"/></svg>';
                                 }
 
+                                if (!$icon) {
+                                    $icon =  ' <i class="far fa-external-link-alt"></i> ';
+                                }
+
                                 return sprintf(
-                                    '<div class="flex"><a href="%s" class="link" target="_blank">%s</a>' . $icon . '</div>',
+                                    '<div class="flex"><a href="%s" class="font-semibold text-gray-500 no-underline dim hover:text-primary-500" target="_blank">%s</a>' . $icon . '</div>',
                                     $route,
                                     $value
                                 );
