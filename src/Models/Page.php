@@ -40,6 +40,8 @@ class Page extends Model
     {
         return [
             'view',
+            'route_name',
+            'middleware',
         ];
     }
 

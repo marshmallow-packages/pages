@@ -89,7 +89,8 @@ class Page extends Resource
                     Text::make(__('Name'), 'name')->sortable()->rules(['required']),
                     $this->getFlex(__('Layout'), 'layout')->loadConfig(PageFacade::getFlexConfig()),
                 ],
-                'SEO' => [
+                Seoable::make('SEO content'),
+                'Advanced' => [
                     Text::make(__('Slug'), 'slug')->rules(['required'])
                         ->help(
                             __('This is the URL of the page. This is not automaticly updated when you change the name of the page. Please don\'t change the url unless you really have to.')
@@ -122,10 +123,6 @@ class Page extends Resource
                                 );
                             }
                         )->asHtml(),
-
-                    Seoable::make('Seo'),
-                ],
-                'Advanced' => [
 
                     Text::make(__('Page view'), 'view')->help(
                         __('This is the view file we use as the base template. If you wish the use the view from the config you can leave this field empty or set it to "Default". Otherwise set it to the blade view selector.')
