@@ -32,7 +32,7 @@
         "marshmallow/nova-flexible": "^2.0",
         "marshmallow/nova-multiselect-field": "^5.0",
         "marshmallow/nova-fontawesome": "^2.0",
-        "laravel/nova": "^4.0",
+        "laravel/nova": "^4.0|^5.0",
         "laravel/helpers": "^1.2"
     },
     "autoload": {
