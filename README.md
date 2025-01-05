@@ -16,6 +16,12 @@ You can install the package via composer:
 composer require marshmallow/pages
 ```
 
+#### Install for Nova 4
+If you are using nova 4, you can install the package using the command below.
+```bash
+composer require marshmallow/pages "^4.0"
+```
+
 ### Run the artisan commands
 Publish the configs from the flexible package, migrate to create the pages table and create your Laravel Nova resource to manage your pages.
 ```bash
