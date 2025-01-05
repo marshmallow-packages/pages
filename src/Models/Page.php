@@ -42,6 +42,8 @@ class Page extends Model
             'view',
             'route_name',
             'middleware',
+            'active',
+            'hide_link_from_index',
         ];
     }
 

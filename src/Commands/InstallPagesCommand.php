@@ -49,11 +49,6 @@ class InstallPagesCommand extends Command
             'Page Nova resource has been created.'
         );
 
-        $this->artisanCall(
-            'env:set NOVA_WYSIWYG \\\Marshmallow\\\Nova\\\TinyMCE\\\TinyMCE',
-            'TinyMCE is marked as your default NOVA_WYSIWYG in your env file'
-        );
-
         $this->addRoutesToWeb();
     }
 
@@ -69,7 +64,7 @@ class InstallPagesCommand extends Command
 
         try {
             $routes_file = fopen($route_file_path, 'w');
-            $new_content = $routes."\n\Marshmallow\Pages\Facades\Page::routes();\n";
+            $new_content = $routes . "\n\Marshmallow\Pages\Facades\Page::routes();\n";
             fwrite($routes_file, $new_content);
             fclose($routes_file);
 
