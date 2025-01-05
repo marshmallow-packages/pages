@@ -3,13 +3,13 @@
 namespace Marshmallow\Pages\Nova;
 
 use App\Nova\Resource;
+use Laravel\Nova\Tabs\Tab;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Boolean;
 use Marshmallow\Seoable\Seoable;
-use Eminiarts\Tabs\Traits\HasTabs;
 use Laravel\Nova\Fields\MorphMany;
 use Illuminate\Database\Eloquent\Model;
-use Outl1ne\MultiselectField\Multiselect as MMMultiselect;
+use Outl1ne\MultiselectField\Multiselect;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Marshmallow\Pages\Facades\Page as PageFacade;
 use Marshmallow\Nova\Flexible\Nova\Traits\HasFlexable;
@@ -20,7 +20,6 @@ class Page extends Resource
 {
     use HasFlexable;
     use TranslatableFields;
-    use HasTabs;
 
     /**
      * The model the resource corresponds to.
@@ -84,13 +83,12 @@ class Page extends Resource
         $table = PageFacade::table();
 
         return [
-            TranslatableTabs::make($this, 'Page editor', [
-                'Main' => [
+            Tab::group(__('Page editor'), array_filter([
+                Tab::make(__('Main'), [
                     Text::make(__('Name'), 'name')->sortable()->rules(['required']),
                     $this->getFlex(__('Layout'), 'layout')->loadConfig(PageFacade::getFlexConfig()),
-                ],
-                Seoable::make('SEO content'),
-                'Advanced' => [
+                ]),
+                Tab::make(__('SEO'), [
                     Text::make(__('Slug'), 'slug')->rules(['required'])
                         ->help(
                             __('This is the URL of the page. This is not automaticly updated when you change the name of the page. Please don\'t change the url unless you really have to.')
@@ -123,25 +121,36 @@ class Page extends Resource
                                 );
                             }
                         )->asHtml(),
-
+                    ...Seoable::asArray('SEO'),
+                ]),
+                Tab::make(__('Advanced'), [
                     Text::make(__('Page view'), 'view')->help(
                         __('This is the view file we use as the base template. If you wish the use the view from the config you can leave this field empty or set it to "Default". Otherwise set it to the blade view selector.')
                     )->hideFromIndex(),
-
                     Boolean::make(__('Active'), 'active')->default(true)->help(
                         __('This page will result in a 404 when its inactive. If you click and the link to this page on the index of the pages module, a temporary url will be created where you can view the page. This can be very handy if you are creating a new page but it itsn\'t finshed yet.')
                     )->hideFromIndex(),
-
                     Boolean::make(__('Hide link from index'), 'hide_link_from_index')->help(
                         __('Some pages don\'t have a default url to visit from the index of the pages module because it needs more information. For instance user information or order information. If you enable this, the clickable link will be hidden on the pages index page.')
                     )->hideFromIndex(),
 
-                    MMMultiselect::make(__('Middleware'), 'middleware')->hideFromIndex()->taggable()->help(__('You can add extra middleware to this page. This is useful if you want to add a middleware to a page that is not the default one. Please use the <strong>full namespace</strong> of the middleware. <strong>Eq: \App\Http\Middleware\HasActiveShoppingCartMiddleware</strong>')),
-                ],
-
-                MorphMany::make(__('Redirect'), 'redirectable'),
-            ])->withToolbar(),
+                    Multiselect::make(__('Middleware'), 'middleware')->hideFromIndex()->taggable()->help(__('You can add extra middleware to this page. This is useful if you want to add a middleware to a page that is not the default one. Please use the <strong>full namespace</strong> of the middleware. <strong>Eq: \App\Http\Middleware\HasActiveShoppingCartMiddleware</strong>')),
+                ]),
+                $this->loadRedirectsTab(),
+            ])),
         ];
+    }
+
+    protected function loadRedirectsTab()
+    {
+        $class = '\App\Nova\Redirect';
+        if (!class_exists($class)) {
+            return null;
+        }
+
+        return Tab::make(__('Redirects'), [
+            MorphMany::make(__('Redirect'), 'redirectable'),
+        ]);
     }
 
     /**
