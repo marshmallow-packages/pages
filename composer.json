@@ -21,17 +21,17 @@
     "minimum-stability": "stable",
     "require": {
         "php": "^8.1",
-        "marshmallow/sluggable": "^1.0",
-        "marshmallow/helpers": "^2.0",
-        "marshmallow/commands": "^1.0",
+        "marshmallow/sluggable": "^1.9",
+        "marshmallow/helpers": "^2.19",
+        "marshmallow/commands": "^1.2",
         "marshmallow/seoable": "^5.0",
-        "marshmallow/translatable": "^2.0",
-        "marshmallow/redirectable": "^2.0",
-        "marshmallow/nova-flexible": "^5.0",
+        "marshmallow/translatable": "^2.13",
+        "marshmallow/redirectable": "^2.3",
+        "marshmallow/nova-flexible": "^5.1",
         "marshmallow/nova-multiselect-field": "^5.0",
-        "marshmallow/nova-fontawesome": "^2.0",
+        "marshmallow/nova-fontawesome": "^2.1",
         "laravel/nova": "^5.0",
-        "laravel/helpers": "^1.2"
+        "laravel/helpers": "^1.7"
     },
     "autoload": {
         "psr-4": {

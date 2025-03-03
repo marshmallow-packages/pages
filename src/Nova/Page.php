@@ -9,11 +9,10 @@ use Laravel\Nova\Fields\Boolean;
 use Marshmallow\Seoable\Seoable;
 use Laravel\Nova\Fields\MorphMany;
 use Illuminate\Database\Eloquent\Model;
-use Outl1ne\MultiselectField\Multiselect;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Marshmallow\MultiselectField\Multiselect;
 use Marshmallow\Pages\Facades\Page as PageFacade;
 use Marshmallow\Nova\Flexible\Nova\Traits\HasFlexable;
-use Marshmallow\Translatable\Facades\TranslatableTabs;
 use Marshmallow\Translatable\Traits\TranslatableFields;
 
 class Page extends Resource
