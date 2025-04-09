@@ -9,6 +9,8 @@ use Marshmallow\Pages\Models\Page as PageModel;
 
 class Page
 {
+    public $pages;
+
     public function __construct()
     {
         if ($this->migrationsAreRun()) {
