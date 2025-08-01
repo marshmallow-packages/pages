@@ -110,7 +110,7 @@ class Page
         return config('pages.flexible_config') ?? [];
     }
 
-    protected function getMiddlewareArray(PageModel $page = null)
+    protected function getMiddlewareArray(?PageModel $page = null)
     {
         $middleware = [
             config('pages.middleware')
