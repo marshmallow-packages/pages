@@ -22,12 +22,12 @@ class PageLinkable extends MenuLinkable
         return config('pages.model')::all()->pluck('name', 'id')->toArray();
     }
 
-    public static function getDisplayValue($value = null, array $parameters = null, array $data = null)
+    public static function getDisplayValue($value = null, ?array $parameters = null, ?array $data = null)
     {
         return 'Page: ' . config('pages.model')::find($value)->name;
     }
 
-    public static function getValue($value = null, array $parameters = null)
+    public static function getValue($value = null, ?array $parameters = null)
     {
         return config('pages.model')::find($value);
     }
@@ -42,7 +42,7 @@ class PageLinkable extends MenuLinkable
         return [];
     }
 
-    public static function getData($data = null, array $parameters = null)
+    public static function getData($data = null, ?array $parameters = null)
     {
         return $data;
     }
