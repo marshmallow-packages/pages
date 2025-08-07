@@ -26,7 +26,7 @@
         "marshmallow/commands": "^1.2",
         "marshmallow/seoable": "^5.1",
         "marshmallow/translatable": "^5.0",
-        "marshmallow/redirectable": "^2.3",
+        "marshmallow/redirectable": "^5.0",
         "marshmallow/nova-flexible": "^5.1",
         "marshmallow/nova-multiselect-field": "^5.0",
         "marshmallow/nova-fontawesome": "^2.1",
