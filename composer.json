@@ -29,7 +29,7 @@
         "marshmallow/redirectable": "^5.0",
         "marshmallow/nova-flexible": "^5.1",
         "marshmallow/nova-multiselect-field": "^5.0",
-        "marshmallow/nova-fontawesome": "^2.1",
+        "marshmallow/nova-fontawesome": "^2.1|^3.0",
         "laravel/nova": "^5.0",
         "laravel/helpers": "^1.7"
     },
