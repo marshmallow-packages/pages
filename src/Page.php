@@ -2,6 +2,8 @@
 
 namespace Marshmallow\Pages;
 
+use PDOException;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Marshmallow\Translatable\Models\Language;
@@ -40,6 +42,22 @@ class Page
     }
 
     public function migrationsAreRun(): bool
+    {
+        try {
+            return $this->pagesTableIsMigrated();
+        } catch (QueryException|PDOException $e) {
+            /**
+             * This runs while the application boots. If the
+             * database is unreachable, report it and skip the
+             * routes so queue workers survive the outage.
+             */
+            report($e);
+
+            return false;
+        }
+    }
+
+    protected function pagesTableIsMigrated(): bool
     {
         $connection = config('pages.database.connection');
         $schema_builder = Schema::connection($connection);
